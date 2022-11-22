@@ -4,12 +4,14 @@ import java.util.ArrayList;
 
 public class Snake {
 
+    // arraylist to store snake body parts locations
     private ArrayList<Point> bodyParts;
     private Point headOfSnake;
     private String direction;
 
     public Snake(int x, int y, String direction) {
         bodyParts = new ArrayList<>();
+        // each snake starts with 4 parts spawned at the same location
         for (int i = 0; i < 4; i++) {
             bodyParts.add(new Point(x, y));
         }
@@ -18,6 +20,8 @@ public class Snake {
         headOfSnake = bodyParts.get(0);
     }
 
+    /* the move() method moves the snake by one block by removing the tail and
+       adding a new head on a location based on the direction and the previous head's location */
     public void move() {
         int x = headOfSnake.getX();
         int y = headOfSnake.getY();
@@ -48,6 +52,7 @@ public class Snake {
         return headOfSnake.getX() < 0 || headOfSnake.getX() > 19 || headOfSnake.getY() < 0 || headOfSnake.getY() > 16;
     }
 
+    // the grow() method grows the snake by one by adding a new body part to the same location as the tail
     public void grow() {
         bodyParts.add(new Point(getTail().getX(), getTail().getY()));
     }
@@ -68,8 +73,9 @@ public class Snake {
         return bodyParts.get(bodyParts.size() - 1);
     }
 
+    /* setter for direction that checks if the new direction isn't the opposite
+       of the previous one to make sure the snake doesn't move backwards */
     public void setDirection(String direction) {
-        // making sure the snake doesn't move backwards
         if ((this.direction.equals("right") && direction.equals("left"))
                 || (this.direction.equals("left") && direction.equals("right"))
                 || (this.direction.equals("up") && direction.equals("down"))
@@ -78,19 +84,4 @@ public class Snake {
             this.direction = direction;
         }
     }
-
-    @Override
-    public boolean equals(Object object) {
-        if (this == object)
-            return true;
-        if (object == null || getClass() != object.getClass())
-            return false;
-
-        Snake snake = (Snake) object;
-
-        if (!bodyParts.equals(snake.bodyParts))
-            return false;
-        return headOfSnake.equals(snake.headOfSnake);
-    }
-
 }
