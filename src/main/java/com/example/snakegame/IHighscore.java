@@ -11,11 +11,11 @@ public interface IHighscore {
     //todo: call this method in the gameOver scene (when checking whether to display the insertNameForAchievement prompt)
 
     /** saves user's name and score in a file called "highscores.txt". */
-    void saveHighscore(int score, String name);
+    void saveHighscore(String name, int score);
     //todo: call this method when the user inputs a name (after being prompted to do so in the gameOver scene)
 
     /** returns a Scene displaying the 10 highest scores currently saved in a file called "highscores.txt". */
-    Scene displayHighscores();
+    void displayHighscores();
     //todo: call this method when user selects the 'HIGH SCORES' menu option, in the Menu scene.
 
 }
