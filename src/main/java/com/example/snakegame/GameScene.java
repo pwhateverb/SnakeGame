@@ -55,7 +55,8 @@ public class GameScene extends Application {
             GridPane.setRowIndex(food, x);
             GridPane.setColumnIndex(food, y);
 
-            System.out.println(food);
+            // PRINT foods current position
+            System.out.println("X: " + x + " Y: " + y);
         });
     }
 }
