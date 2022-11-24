@@ -16,6 +16,10 @@ public class Food {
         food.setY(y);
     }
 
+    public Rectangle getFood() {
+        return food;
+    }
+
     // generates a random food on the "grid", just call this when the snake eats
     public void generateFood() {
         Random rand = new Random();
