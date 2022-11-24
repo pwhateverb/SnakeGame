@@ -1,6 +1,10 @@
 package com.example.snakegame;
 
-public class Multiplayer extends GameScene {
+import javafx.stage.Stage;
 
+import java.io.IOException;
+
+public class Multiplayer {
 
 }
+
