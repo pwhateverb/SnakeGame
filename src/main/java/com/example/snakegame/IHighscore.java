@@ -7,7 +7,7 @@ import javafx.scene.Scene;
 public interface IHighscore {
 
     /** returns true if user achieved a highScore. If so, the gameOver scene should display a prompt like "Input your name to be added to the highscores" */
-    boolean highscoreCheck(int score); // checks if highSco returns true if the score was a highscore
+    boolean highscoreCheck(int score);
     //todo: call in the gameOver screen (when user crashes the snake)
 
     /** saves user's name and score in a file called "highscores.txt". */
