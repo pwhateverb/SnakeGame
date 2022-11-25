@@ -6,9 +6,11 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
-import java.util.Random;
 
 public class GameScene extends Application {
+
+    GridPane grid = new GridPane();
+
     public static void main(String[] args) {
         launch(args);
     }
@@ -19,7 +21,6 @@ public class GameScene extends Application {
         int rowNum = 20;
         int colNum = 20;
 
-        GridPane grid = new GridPane();
         grid.setVgap(0.1);
         grid.setHgap(0.1);
 
@@ -43,20 +44,12 @@ public class GameScene extends Application {
         stage.setScene(scene);
         stage.show();
 
-        Rectangle food = new Rectangle(39.9, 39.9, Color.RED);
-        GridPane.setRowIndex(food, 10);
-        GridPane.setColumnIndex(food, 10);
-        grid.getChildren().addAll(food);
+        Food f = new Food();
+        grid.getChildren().addAll(f.getFood());
 
         scene.setOnKeyPressed(event -> {
-            Random rand = new Random();
-            int x = rand.nextInt(20);
-            int y = rand.nextInt(20);
-            GridPane.setRowIndex(food, x);
-            GridPane.setColumnIndex(food, y);
-
-            // PRINT foods current position
-            System.out.println("X: " + x + " Y: " + y);
+            f.generateFood();
+            System.out.println(f.getFoodX() + " " + f.getFoodY());
         });
     }
 }
