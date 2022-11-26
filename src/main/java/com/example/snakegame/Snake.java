@@ -25,9 +25,9 @@ public class Snake {
                 break;
             case "left" : x--;
                 break;
-            case "up" : y++;
+            case "up" : y--;
                 break;
-            case "down" : y--;
+            case "down" : y++;
                 break;
         }
 
