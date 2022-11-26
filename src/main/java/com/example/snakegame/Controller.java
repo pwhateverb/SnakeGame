@@ -7,6 +7,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
+import java.util.ArrayList;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -50,10 +51,13 @@ public class Controller extends Application {
 
         Snake snakeTest = new Snake();
 
-        Rectangle snakeHead = new Rectangle(39.9, 39.9, Color.GREEN);
-        GridPane.setRowIndex(snakeHead, snakeTest.getHead().getY());
-        GridPane.setColumnIndex(snakeHead, snakeTest.getHead().getX());
-        grid.getChildren().addAll(snakeHead);
+        ArrayList<Rectangle> snakeParts= new ArrayList<>();
+        for (int i = 0; i < snakeTest.getBody().size(); i++) {
+            snakeParts.add(new Rectangle(39.9, 39.9, Color.GREEN));
+            GridPane.setColumnIndex(snakeParts.get(i), snakeTest.getBody().get(i).getX());
+            GridPane.setRowIndex(snakeParts.get(i), snakeTest.getBody().get(i).getY());
+            grid.getChildren().add(snakeParts.get(i));
+        }
 
         scene.setOnKeyPressed(event -> {
             switch (event.getCode()) {
@@ -67,10 +71,10 @@ public class Controller extends Application {
         final ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
         executorService.scheduleAtFixedRate(() -> {
             snakeTest.move(snakeTest.getDirection());
-            if (snakeTest.getDirection().equals("left") || snakeTest.getDirection().equals("right")) {
-                GridPane.setColumnIndex(snakeHead, snakeTest.getHead().getX());
-            } else {
-                GridPane.setRowIndex(snakeHead, snakeTest.getHead().getY());
+            for (int i = 0; i < snakeTest.getBody().size(); i++) {
+                snakeParts.add(new Rectangle(39.9, 39.9, Color.GREEN));
+                GridPane.setColumnIndex(snakeParts.get(i), snakeTest.getBody().get(i).getX());
+                GridPane.setRowIndex(snakeParts.get(i), snakeTest.getBody().get(i).getY());
             }
         }, 0, 200, TimeUnit.MILLISECONDS);
 
