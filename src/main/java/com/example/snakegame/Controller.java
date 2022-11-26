@@ -53,7 +53,7 @@ public class Controller extends Application {
 
         ArrayList<Rectangle> snakeParts= new ArrayList<>();
         for (int i = 0; i < snakeTest.getBody().size(); i++) {
-            snakeParts.add(new Rectangle(39.9, 39.9, Color.GREEN));
+            snakeParts.add(new Rectangle(40, 40, Color.GREEN));
             GridPane.setColumnIndex(snakeParts.get(i), snakeTest.getBody().get(i).getX());
             GridPane.setRowIndex(snakeParts.get(i), snakeTest.getBody().get(i).getY());
             grid.getChildren().add(snakeParts.get(i));
@@ -72,7 +72,6 @@ public class Controller extends Application {
         executorService.scheduleAtFixedRate(() -> {
             snakeTest.move(snakeTest.getDirection());
             for (int i = 0; i < snakeTest.getBody().size(); i++) {
-                snakeParts.add(new Rectangle(40, 40, Color.GREEN));
                 GridPane.setColumnIndex(snakeParts.get(i), snakeTest.getBody().get(i).getX());
                 GridPane.setRowIndex(snakeParts.get(i), snakeTest.getBody().get(i).getY());
             }
