@@ -6,6 +6,7 @@ public class Snake {
 
     private ArrayList<Point> bodyParts;
     private Point headOfSnake;
+    private String direction = "left";
 
     public Snake(){
         bodyParts = new ArrayList<>();
@@ -46,6 +47,14 @@ public class Snake {
 
     public ArrayList<Point> getBody(){
         return bodyParts;
+    }
+
+    public String getDirection() {
+        return direction;
+    }
+
+    public void setDirection(String direction) {
+        this.direction = direction;
     }
 
     @Override

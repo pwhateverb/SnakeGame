@@ -7,6 +7,10 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
+
 public class Controller extends Application {
 
     GridPane grid = new GridPane();
@@ -53,23 +57,22 @@ public class Controller extends Application {
 
         scene.setOnKeyPressed(event -> {
             switch (event.getCode()) {
-                case UP -> {
-                    snakeTest.move("up");
-                    GridPane.setRowIndex(snakeHead, snakeTest.getHead().getY());
-                }
-                case RIGHT -> {
-                    snakeTest.move("right");
-                    GridPane.setColumnIndex(snakeHead, snakeTest.getHead().getX());
-                }
-                case DOWN -> {
-                    snakeTest.move("down");
-                    GridPane.setRowIndex(snakeHead, snakeTest.getHead().getY());
-                }
-                case LEFT -> {
-                    snakeTest.move("left");
-                    GridPane.setColumnIndex(snakeHead, snakeTest.getHead().getX());
-                }
+                case UP -> snakeTest.setDirection("up");
+                case RIGHT -> snakeTest.setDirection("right");
+                case DOWN -> snakeTest.setDirection("down");
+                case LEFT -> snakeTest.setDirection("left");
             }
         });
+
+        final ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
+        executorService.scheduleAtFixedRate(() -> {
+            snakeTest.move(snakeTest.getDirection());
+            if (snakeTest.getDirection().equals("left") || snakeTest.getDirection().equals("right")) {
+                GridPane.setColumnIndex(snakeHead, snakeTest.getHead().getX());
+            } else {
+                GridPane.setRowIndex(snakeHead, snakeTest.getHead().getY());
+            }
+        }, 0, 200, TimeUnit.MILLISECONDS);
+
     }
 }
