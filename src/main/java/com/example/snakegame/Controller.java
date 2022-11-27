@@ -15,6 +15,7 @@ import java.util.concurrent.TimeUnit;
 public class Controller extends Application {
 
     GridPane grid = new GridPane();
+    int points = 0;
 
     public static void main(String[] args) {
         launch(args);
@@ -50,6 +51,7 @@ public class Controller extends Application {
         stage.show();
 
         Snake snakeTest = new Snake();
+        Food foodTest = new Food();
 
         ArrayList<Rectangle> snakeParts= new ArrayList<>();
         for (int i = 0; i < snakeTest.getBody().size(); i++) {
@@ -58,6 +60,8 @@ public class Controller extends Application {
             GridPane.setRowIndex(snakeParts.get(i), snakeTest.getBody().get(i).getY());
             grid.getChildren().add(snakeParts.get(i));
         }
+        foodTest.generateFood();
+        grid.getChildren().add(foodTest.getFood());
 
         scene.setOnKeyPressed(event -> {
             switch (event.getCode()) {
@@ -74,6 +78,12 @@ public class Controller extends Application {
             for (int i = 0; i < snakeTest.getBody().size(); i++) {
                 GridPane.setColumnIndex(snakeParts.get(i), snakeTest.getBody().get(i).getX());
                 GridPane.setRowIndex(snakeParts.get(i), snakeTest.getBody().get(i).getY());
+            }
+            if (foodTest.getFoodX() == GridPane.getRowIndex(snakeParts.get(0))
+                    && foodTest.getFoodY() == GridPane.getColumnIndex(snakeParts.get(0))) {
+                points++;
+                System.out.println("Current points: " + points);
+                foodTest.generateFood();
             }
         }, 0, 200, TimeUnit.MILLISECONDS);
 
