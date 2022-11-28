@@ -89,7 +89,9 @@ public class Controller extends Application {
                 GridPane.setColumnIndex(snakeParts.get(snakeParts.size() - 1), snakeTest.getTail().getX());
                 GridPane.setRowIndex(snakeParts.get(snakeParts.size() - 1), snakeTest.getTail().getY());
                 System.out.println(snakeParts.size() == snakeTest.getBody().size());
-                //grid.getChildren().add(snakeParts.get(snakeParts.size() - 1)); Day 2: this fucking line still breaks the whole damn thing
+                //grid.getChildren().add(snakeParts.get(snakeParts.size() - 1));
+                //Day 2: this^ fucking line still breaks the whole damn thing
+                //The more I try to debug it the more confused I get
             }
         }, 0, 200, TimeUnit.MILLISECONDS);
 
