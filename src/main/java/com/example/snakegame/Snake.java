@@ -38,7 +38,7 @@ public class Snake {
     }
 
     public void grow(){
-        bodyParts.add(new Point(0, 0));
+        bodyParts.add(new Point(getTail().getX(), getTail().getY()));
     }
 
     public Point getHead(){
@@ -51,6 +51,10 @@ public class Snake {
 
     public String getDirection() {
         return direction;
+    }
+
+    public Point getTail() {
+        return bodyParts.get(bodyParts.size() - 1);
     }
 
     public void setDirection(String direction) {

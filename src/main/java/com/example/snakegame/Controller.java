@@ -84,6 +84,12 @@ public class Controller extends Application {
                 points++;
                 System.out.println("Current points: " + points);
                 foodTest.generateFood();
+                snakeTest.grow();
+                snakeParts.add(new Rectangle(40, 40, Color.GREEN));
+                GridPane.setColumnIndex(snakeParts.get(snakeParts.size() - 1), snakeTest.getTail().getX());
+                GridPane.setRowIndex(snakeParts.get(snakeParts.size() - 1), snakeTest.getTail().getY());
+                System.out.println(snakeParts.size() == snakeTest.getBody().size());
+                //grid.getChildren().add(snakeParts.get(snakeParts.size() - 1)); Day 2: this fucking line still breaks the whole damn thing
             }
         }, 0, 200, TimeUnit.MILLISECONDS);
 
