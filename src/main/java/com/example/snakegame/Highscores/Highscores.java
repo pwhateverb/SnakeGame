@@ -187,23 +187,27 @@ public class Highscores implements IHighscores {
 
 
         TextField result = (TextField) scene.lookup("#result");
-
+        result.setMaxSize(50,50);
         Button saveHighscore = (Button) scene.lookup("#saveHighscore");
 
         Text submitLabel = (Text) scene.lookup("#submitLabel");
         if (highscoreCheck(score)) {
-            submitLabel.setText("SUBMIT SCORE: ");
-            result.setDisable(false);
+            result.setManaged(true);
+            saveHighscore.setManaged(true);
         } else {
             submitLabel.setText("NO HIGHSCORE ACHIEVED");
-            saveHighscore.setDisable(true);
-            result.setDisable(true);
+            saveHighscore.setManaged(false);
+            result.setManaged(false);
         }
 
         saveHighscore.setOnAction(e -> {
-            saveHighscore(result.getText(), score);
-            saveHighscore.setDisable(true);
-            submitLabel.setText(result.getText()+"'s highscore submitted ("+ score +" points)");
+            if(result.getText().equals("")){
+                submitLabel.setText("NAME CAN'T BE BLANK. WRITE A VALID NAME");
+            } else {
+                saveHighscore(result.getText(), score);
+                saveHighscore.setDisable(true);
+                submitLabel.setText(result.getText()+"'s highscore submitted ("+ score +" points)");
+            }
         });
         StackPane stackPane2 = (StackPane) scene.lookup("#stackPane2");
         stackPane2.setPadding(new Insets(20));
