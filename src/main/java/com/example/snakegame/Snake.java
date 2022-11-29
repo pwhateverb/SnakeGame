@@ -17,11 +17,11 @@ public class Snake {
         headOfSnake = bodyParts.get(0);
     }
 
-    public void move(String direction){
+    public void move(){
         int x = headOfSnake.getX();
         int y = headOfSnake.getY();
 
-        switch (direction) {
+        switch (this.direction) {
             case "right" : x++;
                 break;
             case "left" : x--;
