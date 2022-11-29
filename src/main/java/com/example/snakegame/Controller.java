@@ -74,7 +74,7 @@ public class Controller extends Application {
 
         final ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
         executorService.scheduleAtFixedRate(() -> {
-            snakeTest.move(snakeTest.getDirection());
+            snakeTest.move();
             for (int i = 0; i < snakeTest.getBody().size(); i++) {
                 GridPane.setColumnIndex(snakeParts.get(i), snakeTest.getBody().get(i).getX());
                 GridPane.setRowIndex(snakeParts.get(i), snakeTest.getBody().get(i).getY());
