@@ -19,8 +19,7 @@ import javafx.scene.input.KeyEvent;
 
 import javafx.stage.Stage;
 
-public class HelloApplication extends Application {
-
+public class mainMenu extends Application {
 
     private static final Rectangle menuPointer = new Rectangle();
 
@@ -53,17 +52,18 @@ public class HelloApplication extends Application {
         menuPointer.setTranslateX(150);
         paintPointer(menuOption);
 
-
         Button singlePlayer = new Button("1. SINGLE PLAYER");
         singlePlayer.setTranslateX(250);
         singlePlayer.setTranslateY(310);
         singlePlayer.setFont(Font.font("Verdana", FontWeight.BOLD, 30));
         singlePlayer.setTextFill(Color.LIMEGREEN);
         singlePlayer.setStyle("-fx-background-color: #000000; ");
-        /*singlePlayer.setOnAction(e -> {
-            changeMenuOption(1);
-            activate(menuOption);
-        });*/
+        /*
+         * singlePlayer.setOnAction(e -> {
+         * changeMenuOption(1);
+         * activate(menuOption);
+         * });
+         */
 
         Button coOpMode = new Button("2. CO-OP MODE");
         coOpMode.setTranslateX(250);
@@ -71,10 +71,12 @@ public class HelloApplication extends Application {
         coOpMode.setFont(Font.font("Verdana", FontWeight.BOLD, 30));
         coOpMode.setTextFill(Color.LIMEGREEN);
         coOpMode.setStyle("-fx-background-color: #000000; ");
-        /*coOpMode.setOnAction(e -> {
-            changeMenuOption(2);
-            activate(menuOption);
-        });*/
+        /*
+         * coOpMode.setOnAction(e -> {
+         * changeMenuOption(2);
+         * activate(menuOption);
+         * });
+         */
 
         Button instructions = new Button("3. INSTRUCTIONS");
         instructions.setTranslateX(250);
@@ -82,10 +84,12 @@ public class HelloApplication extends Application {
         instructions.setFont(Font.font("Verdana", FontWeight.BOLD, 30));
         instructions.setTextFill(Color.LIMEGREEN);
         instructions.setStyle("-fx-background-color: #000000; ");
-        /*instructions.setOnAction(e -> {
-            changeMenuOption(3);
-            activate(menuOption);
-        });*/
+        /*
+         * instructions.setOnAction(e -> {
+         * changeMenuOption(3);
+         * activate(menuOption);
+         * });
+         */
 
         Button highScores = new Button("4. HIGH SCORES");
         highScores.setTranslateX(250);
@@ -93,10 +97,12 @@ public class HelloApplication extends Application {
         highScores.setFont(Font.font("Verdana", FontWeight.BOLD, 30));
         highScores.setTextFill(Color.LIMEGREEN);
         highScores.setStyle("-fx-background-color: #000000; ");
-        /*highScores.setOnAction(e -> {
-            changeMenuOption(4);
-            activate(menuOption);
-        });*/
+        /*
+         * highScores.setOnAction(e -> {
+         * changeMenuOption(4);
+         * activate(menuOption);
+         * });
+         */
 
         Button exitGame = new Button("5. EXIT GAME");
         exitGame.setTranslateX(250);
@@ -104,10 +110,12 @@ public class HelloApplication extends Application {
         exitGame.setFont(Font.font("Verdana", FontWeight.BOLD, 30));
         exitGame.setTextFill(Color.LIMEGREEN);
         exitGame.setStyle("-fx-background-color: #000000; ");
-        /*exitGame.setOnAction(e -> {
-            changeMenuOption(5);
-            activate(menuOption);
-        });*/
+        /*
+         * exitGame.setOnAction(e -> {
+         * changeMenuOption(5);
+         * activate(menuOption);
+         * });
+         */
 
         VBox layout1 = new VBox(20);
         layout1.setBackground(new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY)));
