@@ -6,23 +6,28 @@
 <?import javafx.scene.text.*?>
 
 <StackPane
-    fx:id="stackPane2" style="-fx-background-color: BLACK;"
-    prefHeight="400" prefWidth="600"
-    xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1"
-    fx:controller="com.example.snakegame.Highscores.Highscores">
+        fx:id="stackPane2" style="-fx-background-color: BLACK;"
+        prefHeight="400" prefWidth="600"
+        xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1"
+        fx:controller="com.example.snakegame.Highscores.Highscores">
 
-<VBox alignment="CENTER" spacing="20.0" style="-fx-background-color: BLACK;" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/17.0.2-ea">
-    <padding><Insets bottom="20.0" left="20.0" right="20.0" top="20.0" /></padding>
-    <Label fx:id="gameOver" text="GAME OVER" textFill="#40bc52" />
-    <Text fx:id="finalScore" text="FINAL SCORE: " fill="#40bc52" />
+    <VBox alignment="CENTER" spacing="20.0" style="-fx-background-color: BLACK;" xmlns:fx="http://javafx.com/fxml/1"
+          xmlns="http://javafx.com/javafx/17.0.2-ea">
+        <padding>
+            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
+        </padding>
+        <Label fx:id="gameOver" text="GAME OVER" textFill="#40bc52"/>
+        <Text fx:id="finalScore" text="FINAL SCORE: " fill="#40bc52"/>
 
-    <Button id="closeButton" style="-fx-background-color: BLACK;" text="Back To Menu" textFill="#40bc52" />
-    <Button id="retryButton" style="-fx-background-color: BLACK;" text="RETRY" textFill="#40bc52" />
+        <Button id="closeButton" style="-fx-background-color: BLACK;" text="Back To Menu" textFill="#40bc52"/>
+        <Button id="retryButton" style="-fx-background-color: BLACK;" text="RETRY" textFill="#40bc52"/>
 
-    <HBox>
-        <Text id="submitLabel" fill="#40bc52" />
-        <TextField id="result" />
-    </HBox>
-    <Button id="saveHighscore" style="-fx-background-color: BLACK;" text="SAVE HIGHSCORE" textFill="#40bc52" />
-</VBox>
+        <HBox alignment="CENTER">
+            <TextField id="result"/>
+            <Button id="saveHighscore" style="-fx-background-color: BLACK;" text="SUBMIT" textFill="#40bc52"/>
+        </HBox>
+
+        <Text id="submitLabel" fill="#40bc52"/>
+
+    </VBox>
 </StackPane>
