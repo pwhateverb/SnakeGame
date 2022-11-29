@@ -10,7 +10,7 @@
         fx:id="stackPane" style="-fx-background-color: BLACK;"
         prefHeight="400" prefWidth="600"
         xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1"
-        fx:controller="com.example.snakegame.Highscores">
+        fx:controller="com.example.snakegame.Highscores.Highscores">
 
     <BorderPane
             fx:id="borderPane">

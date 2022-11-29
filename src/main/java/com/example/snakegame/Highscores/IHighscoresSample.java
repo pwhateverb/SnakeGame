@@ -1,4 +1,4 @@
-package com.example.snakegame;
+package com.example.snakegame.Highscores;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -9,7 +9,7 @@ import javafx.stage.Stage;
 
 import java.util.Random;
 
-public class HighscoresExample extends Application {
+public class IHighscoresSample extends Application {
 
     /**
      * Sample class to showcase the use of the IHighscores interface.

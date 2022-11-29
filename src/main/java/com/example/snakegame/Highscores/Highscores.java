@@ -1,20 +1,15 @@
-package com.example.snakegame;
+package com.example.snakegame.Highscores;
 
+import com.example.snakegame.HelloApplication;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
-import javafx.scene.text.TextAlignment;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.FileNotFoundException;

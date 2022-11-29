@@ -1,4 +1,4 @@
-package com.example.snakegame;
+package com.example.snakegame.Highscores;
 
 public class Highscore implements Comparable<Highscore>{
     final public String name;
