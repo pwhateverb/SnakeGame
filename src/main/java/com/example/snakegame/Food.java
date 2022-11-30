@@ -17,10 +17,15 @@ public class Food {
         return food;
     }
 
-    public void generateFood() {
+    public void generateFood(Snake snake) {
         Random rand = new Random();
         int x = rand.nextInt(20);
         int y = rand.nextInt(20);
+        for (int i = 0; i < snake.getBody().size(); i++) {
+            if (snake.getBody().get(i).getX() == x && snake.getBody().get(i).getY() == y) {
+                generateFood(snake);
+            }
+        }
         GridPane.setRowIndex(food, x);
         GridPane.setColumnIndex(food, y);
     }

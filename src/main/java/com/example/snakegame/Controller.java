@@ -18,7 +18,7 @@ public class Controller extends Application {
     private final GridPane grid = new GridPane();
     private final Snake snakeTest = new Snake();
     private final Food foodTest = new Food();
-    private final ArrayList<Rectangle> snakeParts= new ArrayList<>();
+    private final ArrayList<Rectangle> snakeParts = new ArrayList<>();
     private int points = 0;
 
     public static void main(String[] args) {
@@ -60,7 +60,7 @@ public class Controller extends Application {
             GridPane.setRowIndex(snakeParts.get(i), snakeTest.getBody().get(i).getY());
             grid.getChildren().add(snakeParts.get(i));
         }
-        foodTest.generateFood();
+        foodTest.generateFood(snakeTest);
         grid.getChildren().add(foodTest.getFood());
 
         scene.setOnKeyPressed(event -> {
@@ -85,7 +85,7 @@ public class Controller extends Application {
                             && foodTest.getFoodY() == GridPane.getColumnIndex(snakeParts.get(0))) {
                         points++;
                         System.out.println("Current points: " + points);
-                        foodTest.generateFood();
+                        foodTest.generateFood(snakeTest);
                         snakeTest.grow();
                         snakeParts.add(new Rectangle(40, 40, Color.GREEN));
                         GridPane.setColumnIndex(snakeParts.get(snakeParts.size() - 1), snakeTest.getTail().getX());
@@ -93,10 +93,8 @@ public class Controller extends Application {
                         System.out.println(snakeParts.size() == snakeTest.getBody().size());
                         grid.getChildren().add(snakeParts.get(snakeParts.size() - 1));
                     }
-                }
-            )
-        );
-        timeline.setCycleCount(Animation.INDEFINITE );
+                }));
+        timeline.setCycleCount(Animation.INDEFINITE);
         timeline.play();
     }
 }

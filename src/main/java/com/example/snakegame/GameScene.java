@@ -48,7 +48,7 @@ public class GameScene extends Application {
         grid.getChildren().addAll(f.getFood());
 
         scene.setOnKeyPressed(event -> {
-            f.generateFood();
+
             System.out.println(f.getFoodX() + " " + f.getFoodY());
         });
     }
