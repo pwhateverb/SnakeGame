@@ -1,21 +1,25 @@
 package com.example.snakegame;
 
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.util.ArrayList;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 
 public class Controller extends Application {
 
-    GridPane grid = new GridPane();
-    int points = 0;
+    private final GridPane grid = new GridPane();
+    private final Snake snakeTest = new Snake();
+    private final Food foodTest = new Food();
+    private final ArrayList<Rectangle> snakeParts= new ArrayList<>();
+    private int points = 0;
 
     public static void main(String[] args) {
         launch(args);
@@ -50,10 +54,6 @@ public class Controller extends Application {
         stage.setScene(scene);
         stage.show();
 
-        Snake snakeTest = new Snake();
-        Food foodTest = new Food();
-
-        ArrayList<Rectangle> snakeParts= new ArrayList<>();
         for (int i = 0; i < snakeTest.getBody().size(); i++) {
             snakeParts.add(new Rectangle(40, 40, Color.GREEN));
             GridPane.setColumnIndex(snakeParts.get(i), snakeTest.getBody().get(i).getX());
@@ -72,28 +72,31 @@ public class Controller extends Application {
             }
         });
 
-        final ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
-        executorService.scheduleAtFixedRate(() -> {
-            snakeTest.move();
-            for (int i = 0; i < snakeTest.getBody().size(); i++) {
-                GridPane.setColumnIndex(snakeParts.get(i), snakeTest.getBody().get(i).getX());
-                GridPane.setRowIndex(snakeParts.get(i), snakeTest.getBody().get(i).getY());
-            }
-            if (foodTest.getFoodX() == GridPane.getRowIndex(snakeParts.get(0))
-                    && foodTest.getFoodY() == GridPane.getColumnIndex(snakeParts.get(0))) {
-                points++;
-                System.out.println("Current points: " + points);
-                foodTest.generateFood();
-                snakeTest.grow();
-                snakeParts.add(new Rectangle(40, 40, Color.GREEN));
-                GridPane.setColumnIndex(snakeParts.get(snakeParts.size() - 1), snakeTest.getTail().getX());
-                GridPane.setRowIndex(snakeParts.get(snakeParts.size() - 1), snakeTest.getTail().getY());
-                System.out.println(snakeParts.size() == snakeTest.getBody().size());
-                //grid.getChildren().add(snakeParts.get(snakeParts.size() - 1));
-                //Day 2: this^ fucking line still breaks the whole damn thing
-                //The more I try to debug it the more confused I get
-            }
-        }, 0, 200, TimeUnit.MILLISECONDS);
+        int difficulty = 150;
 
+        final Timeline timeline = new Timeline(
+                new KeyFrame(Duration.millis(difficulty), event -> {
+                    snakeTest.move();
+                    for (int i = 0; i < snakeTest.getBody().size(); i++) {
+                        GridPane.setColumnIndex(snakeParts.get(i), snakeTest.getBody().get(i).getX());
+                        GridPane.setRowIndex(snakeParts.get(i), snakeTest.getBody().get(i).getY());
+                    }
+                    if (foodTest.getFoodX() == GridPane.getRowIndex(snakeParts.get(0))
+                            && foodTest.getFoodY() == GridPane.getColumnIndex(snakeParts.get(0))) {
+                        points++;
+                        System.out.println("Current points: " + points);
+                        foodTest.generateFood();
+                        snakeTest.grow();
+                        snakeParts.add(new Rectangle(40, 40, Color.GREEN));
+                        GridPane.setColumnIndex(snakeParts.get(snakeParts.size() - 1), snakeTest.getTail().getX());
+                        GridPane.setRowIndex(snakeParts.get(snakeParts.size() - 1), snakeTest.getTail().getY());
+                        System.out.println(snakeParts.size() == snakeTest.getBody().size());
+                        grid.getChildren().add(snakeParts.get(snakeParts.size() - 1));
+                    }
+                }
+            )
+        );
+        timeline.setCycleCount(Animation.INDEFINITE );
+        timeline.play();
     }
 }
