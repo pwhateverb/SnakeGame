@@ -19,7 +19,7 @@ public class Controller extends Application {
     private final Snake snakeTest = new Snake();
     private final Food foodTest = new Food();
     private final ArrayList<Rectangle> snakeParts = new ArrayList<>();
-    private int points = 0;
+    private int points = 0; //Show this number in the UI
 
     public static void main(String[] args) {
         launch(args);
@@ -27,7 +27,7 @@ public class Controller extends Application {
 
     @Override
     public void start(Stage stage) {
-
+        //Setting up stage
         int rowNum = 20;
         int colNum = 20;
 
@@ -54,6 +54,7 @@ public class Controller extends Application {
         stage.setScene(scene);
         stage.show();
 
+        //initialize snake parts
         for (int i = 0; i < snakeTest.getBody().size(); i++) {
             snakeParts.add(new Rectangle(40, 40, Color.GREEN));
             GridPane.setColumnIndex(snakeParts.get(i), snakeTest.getBody().get(i).getX());
@@ -63,6 +64,7 @@ public class Controller extends Application {
         foodTest.generateFood(snakeTest);
         grid.getChildren().add(foodTest.getFood());
 
+        //Gather key inputs
         scene.setOnKeyPressed(event -> {
             switch (event.getCode()) {
                 case UP -> snakeTest.setDirection("up");
@@ -72,21 +74,28 @@ public class Controller extends Application {
             }
         });
 
+        //ms between each frame update (lower number == harder game)
         int difficulty = 150;
 
+        //Frame updater
         final Timeline timeline = new Timeline(
                 new KeyFrame(Duration.millis(difficulty), event -> {
                     snakeTest.move();
+                    //Move snake every frame
                     for (int i = 0; i < snakeTest.getBody().size(); i++) {
                         GridPane.setColumnIndex(snakeParts.get(i), snakeTest.getBody().get(i).getX());
                         GridPane.setRowIndex(snakeParts.get(i), snakeTest.getBody().get(i).getY());
                     }
+                    //Check if head == food
                     if (foodTest.getFoodX() == GridPane.getRowIndex(snakeParts.get(0))
                             && foodTest.getFoodY() == GridPane.getColumnIndex(snakeParts.get(0))) {
                         points++;
                         System.out.println("Current points: " + points);
+                        //Generate new food
                         foodTest.generateFood(snakeTest);
                         snakeTest.grow();
+
+                        //Grow snake by 1
                         snakeParts.add(new Rectangle(40, 40, Color.GREEN));
                         GridPane.setColumnIndex(snakeParts.get(snakeParts.size() - 1), snakeTest.getTail().getX());
                         GridPane.setRowIndex(snakeParts.get(snakeParts.size() - 1), snakeTest.getTail().getY());
@@ -94,6 +103,7 @@ public class Controller extends Application {
                         grid.getChildren().add(snakeParts.get(snakeParts.size() - 1));
                     }
                 }));
+        //Play frames
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.play();
     }
