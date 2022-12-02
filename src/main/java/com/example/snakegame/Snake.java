@@ -58,7 +58,15 @@ public class Snake {
     }
 
     public void setDirection(String direction) {
-        this.direction = direction;
+        // making sure the snake doesn't move backwards
+        if ((this.direction.equals("right") && direction.equals("left"))
+                || (this.direction.equals("left") && direction.equals("right"))
+                || (this.direction.equals("up") && direction.equals("down"))
+                || (this.direction.equals("down") && direction.equals("up"))) {
+            ;
+        } else {
+            this.direction = direction;
+        }
     }
 
     @Override
