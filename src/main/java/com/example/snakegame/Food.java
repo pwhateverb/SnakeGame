@@ -31,11 +31,11 @@ public class Food {
     }
 
     public int getFoodX() {
-        return GridPane.getRowIndex(food);
+        return GridPane.getColumnIndex(food);
     }
 
     public int getFoodY() {
-        return GridPane.getColumnIndex(food);
+        return GridPane.getRowIndex(food);
     }
 
 }
