@@ -61,7 +61,6 @@ public class Controller extends Application {
             GridPane.setRowIndex(snakeParts.get(i), snakeTest.getBody().get(i).getY());
             grid.getChildren().add(snakeParts.get(i));
         }
-        foodTest.generateFood(snakeTest);
         grid.getChildren().add(foodTest.getFood());
 
         // Gather key inputs
