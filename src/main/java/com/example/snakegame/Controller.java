@@ -101,6 +101,16 @@ public class Controller extends Application {
                         // Generate new food
                         foodTest.generateFood(snakeTest);
                     }
+
+                    // If snake hits its own body, game over
+                    for (int i = 1; i < snakeTest.getBody().size(); i++) {
+                        if (snakeTest.getHead().getX() == snakeTest.getBody().get(i).getX()
+                                && snakeTest.getHead().getY() == snakeTest.getBody().get(i).getY()) {
+                            System.out.println("Game over");
+                            // should lead to gameOverScene() instead of force closing
+                            System.exit(0);
+                        }
+                    }
                 }));
         // Play frames
         timeline.setCycleCount(Animation.INDEFINITE);
