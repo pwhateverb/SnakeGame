@@ -8,9 +8,15 @@ import java.util.Random;
 public class Food {
 
     private Rectangle food;
+    Random rand = new Random();
 
     public Food() {
-        food = new Rectangle(39.9, 39.9, Color.RED);
+        food = new Rectangle(40, 40, Color.RED);
+        // set food to random position
+        int x = rand.nextInt(19);
+        int y = rand.nextInt(19);
+        GridPane.setColumnIndex(food, x);
+        GridPane.setRowIndex(food, y);
     }
 
     public Rectangle getFood() {
@@ -18,24 +24,31 @@ public class Food {
     }
 
     public void generateFood(Snake snake) {
-        Random rand = new Random();
-        int x = rand.nextInt(20);
-        int y = rand.nextInt(20);
-        for (int i = 0; i < snake.getBody().size(); i++) {
-            if (snake.getBody().get(i).getX() == x && snake.getBody().get(i).getY() == y) {
-                generateFood(snake);
+        boolean foodOnSnake = true;
+        while (foodOnSnake) {
+            int x = rand.nextInt(19);
+            int y = rand.nextInt(19);
+            for (int i = 0; i < snake.getBody().size(); i++) {
+                if (snake.getBody().get(i).getX() == x && snake.getBody().get(i).getY() == y) {
+                    foodOnSnake = true;
+                    break;
+                } else {
+                    foodOnSnake = false;
+                }
+            }
+            if (!foodOnSnake) {
+                GridPane.setColumnIndex(food, x);
+                GridPane.setRowIndex(food, y);
             }
         }
-        GridPane.setRowIndex(food, x);
-        GridPane.setColumnIndex(food, y);
     }
 
     public int getFoodX() {
-        return GridPane.getRowIndex(food);
+        return GridPane.getColumnIndex(food);
     }
 
     public int getFoodY() {
-        return GridPane.getColumnIndex(food);
+        return GridPane.getRowIndex(food);
     }
 
 }
