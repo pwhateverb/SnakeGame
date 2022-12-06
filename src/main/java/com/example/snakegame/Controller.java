@@ -35,6 +35,7 @@ public class Controller extends Application {
         grid.setHgap(0.1);
 
         Color color = Color.BLACK;
+        Color snakeColor = Color.web("#00FF00");
 
         for (int row = 0; row < rowNum; row++) {
             for (int col = 0; col < colNum; col++) {
@@ -56,7 +57,7 @@ public class Controller extends Application {
 
         // initialize snake parts
         for (int i = 0; i < snakeTest.getBody().size(); i++) {
-            snakeParts.add(new Rectangle(40, 40, Color.GREEN));
+            snakeParts.add(new Rectangle(39.8, 39.8, snakeColor));
             GridPane.setColumnIndex(snakeParts.get(i), snakeTest.getBody().get(i).getX());
             GridPane.setRowIndex(snakeParts.get(i), snakeTest.getBody().get(i).getY());
             grid.getChildren().add(snakeParts.get(i));
@@ -93,7 +94,7 @@ public class Controller extends Application {
                         snakeTest.grow();
 
                         // Grow snake by 1
-                        snakeParts.add(new Rectangle(40, 40, Color.GREEN));
+                        snakeParts.add(new Rectangle(39.8, 39.8, snakeColor));
                         GridPane.setColumnIndex(snakeParts.get(snakeParts.size() - 1), snakeTest.getTail().getX());
                         GridPane.setRowIndex(snakeParts.get(snakeParts.size() - 1), snakeTest.getTail().getY());
                         System.out.println(snakeParts.size() == snakeTest.getBody().size());
@@ -106,14 +107,19 @@ public class Controller extends Application {
                     for (int i = 1; i < snakeTest.getBody().size(); i++) {
                         if (snakeTest.getHead().getX() == snakeTest.getBody().get(i).getX()
                                 && snakeTest.getHead().getY() == snakeTest.getBody().get(i).getY()) {
-                            System.out.println("Game over");
-                            // should lead to gameOverScene() instead of force closing
-                            System.exit(0);
+                            gameOver();
                         }
                     }
                 }));
         // Play frames
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.play();
+    }
+
+    public static void gameOver() {
+        System.out.println("Game Over");
+        // Highscores.saveHighscore("John doe", points);
+        // should lead to gameOverScene() instead of force closing
+        System.exit(0);
     }
 }
