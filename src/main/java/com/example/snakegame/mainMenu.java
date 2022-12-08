@@ -162,7 +162,9 @@ public class mainMenu extends Application {
     //method for changing scene in the menu
     public void activate(int menuOption) {
         if (menuOption == 1) {
-            stage.setScene(instructionScene);
+            Controller controller = new Controller(stage, mainMenuScene);
+            Scene displayGameScene = controller.play();
+            stage.setScene(displayGameScene);
         } else if (menuOption == 2) {
             stage.setScene(instructionScene);
         } else if (menuOption == 3) {
@@ -172,7 +174,7 @@ public class mainMenu extends Application {
             Scene displayHighscoresScene = iHighscores.displayHighscores(stage, mainMenuScene);
             stage.setScene(displayHighscoresScene);
         } else if (menuOption == 5) {
-            System.exit(0);
+            stage.close();
         }
     }
 
