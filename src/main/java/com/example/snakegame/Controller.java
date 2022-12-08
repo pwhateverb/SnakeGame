@@ -1,5 +1,7 @@
 package com.example.snakegame;
 
+import com.example.snakegame.Highscores.Highscores;
+import com.example.snakegame.Highscores.IHighscores;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -15,20 +17,25 @@ import javafx.util.Duration;
 
 import java.util.ArrayList;
 
-public class Controller extends Application {
-
+public class Controller {
+    Timeline timeline;
     private final GridPane grid = new GridPane();
     private final Snake snakeTest = new Snake();
     private final Food foodTest = new Food();
     private final ArrayList<Rectangle> snakeParts = new ArrayList<>();
     private int points = 0; // Show this number in the UI
 
-    public static void main(String[] args) {
-        launch(args);
+    Controller(Stage stage, Scene mainMenuScene) {
+        this.stage = stage;
+        this.mainMenuScene = mainMenuScene;
+        timeline = null;
     }
 
-    @Override
-    public void start(Stage stage) {
+    Stage stage;
+    Scene scene;
+    Scene mainMenuScene;
+
+    public Scene play() {
 
         // Setting up stage
         int rowNum = 20;
@@ -58,17 +65,13 @@ public class Controller extends Application {
         Label score = new Label("Score: " + points);
         score.setWrapText(true);
         GridPane.setColumnSpan(score, 3);
-        GridPane.setColumnIndex(score,1 );
-        GridPane.setRowIndex(score,0);
+        GridPane.setColumnIndex(score, 1);
+        GridPane.setRowIndex(score, 0);
         score.setFont(new Font("Verdana", 28));
         score.setStyle("-fx-font: 100px Verdana; -fx-font-weight: bold; -fx-text-fill: #32CD32; -fx-font-size: 25;");
         grid.getChildren().add(score);
 
-        Scene scene = new Scene(grid, 800, 800);
-
-        stage.setTitle("Snake");
-        stage.setScene(scene);
-        stage.show();
+        scene = new Scene(grid, 800, 800);
 
         // initialize snake parts
         for (int i = 0; i < snakeTest.getBody().size(); i++) {
@@ -93,9 +96,16 @@ public class Controller extends Application {
         int difficulty = 150;
 
         // Frame updater
-        final Timeline timeline = new Timeline(
+         timeline = new Timeline(
                 new KeyFrame(Duration.millis(difficulty), event -> {
                     snakeTest.move();
+
+                    // if snake is out of bounds aka hitting the walls => game over
+                    if (snakeTest.isSnakeOutOfMap()) {
+                        gameOver();
+                        return;
+                    }
+
                     // Move snake every frame
                     for (int i = 0; i < snakeTest.getBody().size(); i++) {
                         GridPane.setColumnIndex(snakeParts.get(i), snakeTest.getBody().get(i).getX());
@@ -124,18 +134,27 @@ public class Controller extends Application {
                         if (snakeTest.getHead().getX() == snakeTest.getBody().get(i).getX()
                                 && snakeTest.getHead().getY() == snakeTest.getBody().get(i).getY()) {
                             gameOver();
+                            return;
                         }
                     }
+
+
+
                 }));
         // Play frames
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.play();
+
+        return scene;
     }
 
-    public static void gameOver() {
-        System.out.println("Game Over");
-        // Highscores.saveHighscore("John doe", points);
-        // should lead to gameOverScene() instead of force closing
-        System.exit(0);
+
+    public void gameOver() {
+        timeline.stop();
+        IHighscores iHighscores = new Highscores();
+        Controller controller = new Controller(stage,mainMenuScene);
+        Scene postGameScreen = iHighscores.displayPostGame(stage, mainMenuScene, controller.play(), 1000);
+        stage.setScene(postGameScreen);
+        stage.show();
     }
 }
