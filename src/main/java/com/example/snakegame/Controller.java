@@ -9,6 +9,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -57,9 +58,10 @@ public class Controller extends Application {
         Label score = new Label("Score: " + points);
         score.setWrapText(true);
         GridPane.setColumnSpan(score, 3);
-        GridPane.setColumnIndex(score, 5);
+        GridPane.setColumnIndex(score,1 );
         GridPane.setRowIndex(score,0);
-        score.setStyle("-fx-font-weight: bold; -fx-text-fill: white; -fx-font-size: 23");
+        score.setFont(new Font("Verdana", 28));
+        score.setStyle("-fx-font: 100px Verdana; -fx-font-weight: bold; -fx-text-fill: #32CD32; -fx-font-size: 25;");
         grid.getChildren().add(score);
 
         Scene scene = new Scene(grid, 800, 800);
