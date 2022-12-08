@@ -5,6 +5,7 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -27,6 +28,7 @@ public class Controller extends Application {
 
     @Override
     public void start(Stage stage) {
+
         // Setting up stage
         int rowNum = 20;
         int colNum = 20;
@@ -48,6 +50,14 @@ public class Controller extends Application {
                 grid.getChildren().addAll(rec);
             }
         }
+
+        //Fix and expand over several grids, too small atm
+        Label score = new Label("Score: " + points);
+        score.setWrapText(true);
+        GridPane.setColumnIndex(score, 5);
+        GridPane.setRowIndex(score,0);
+        score.setStyle("-fx-font-weight: bold; -fx-text-fill: white; -fx-font-size: 13");
+        grid.getChildren().add(score);
 
         Scene scene = new Scene(grid, 800, 800);
 
@@ -90,6 +100,7 @@ public class Controller extends Application {
                     if (foodTest.getFoodY() == GridPane.getRowIndex(snakeParts.get(0))
                             && foodTest.getFoodX() == GridPane.getColumnIndex(snakeParts.get(0))) {
                         points++;
+                        score.setText("Score: " + points);
                         System.out.println("Current points: " + points);
                         snakeTest.grow();
 

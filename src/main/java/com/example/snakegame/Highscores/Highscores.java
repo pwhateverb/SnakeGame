@@ -1,6 +1,6 @@
 package com.example.snakegame.Highscores;
 
-import com.example.snakegame.HelloApplication;
+import com.example.snakegame.Controller;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import javafx.fxml.FXMLLoader;
@@ -109,7 +109,7 @@ public class Highscores implements IHighscores {
     @Override
     public Scene displayHighscores(Stage initialStage, Scene initialScene) {
 
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("display-highscores-layout.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(Controller.class.getResource("display-highscores-layout.fxml"));
         Scene scene = null;
         try {
             scene = new Scene(fxmlLoader.load(), 320, 240);
@@ -161,7 +161,7 @@ public class Highscores implements IHighscores {
     @Override
     public Scene displayPostGame(Stage initialStage, Scene menuScene, Scene gameScene, int score) {
 
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("post-game-layout.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(Controller.class.getResource("post-game-layout.fxml"));
         Scene scene = null;
         try {
             scene = new Scene(fxmlLoader.load(), 320, 240);
