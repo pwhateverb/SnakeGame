@@ -54,9 +54,10 @@ public class Controller extends Application {
         //Fix and expand over several grids, too small atm
         Label score = new Label("Score: " + points);
         score.setWrapText(true);
+        GridPane.setColumnSpan(score, 3);
         GridPane.setColumnIndex(score, 5);
         GridPane.setRowIndex(score,0);
-        score.setStyle("-fx-font-weight: bold; -fx-text-fill: white; -fx-font-size: 13");
+        score.setStyle("-fx-font-weight: bold; -fx-text-fill: white; -fx-font-size: 23");
         grid.getChildren().add(score);
 
         Scene scene = new Scene(grid, 800, 800);
