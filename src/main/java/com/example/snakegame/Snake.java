@@ -8,6 +8,8 @@ public class Snake {
     private Point headOfSnake;
     private String direction = "left";
 
+
+
     public Snake() {
         bodyParts = new ArrayList<>();
         for (int i = 0; i < 4; i++) {
@@ -40,10 +42,12 @@ public class Snake {
         bodyParts.remove(bodyParts.size() - 1);
         headOfSnake = bodyParts.get(0);
 
+
+    }
+
+    public boolean isSnakeOutOfMap(){
         // if snake is out of bounds aka hitting the walls => game over
-        if (headOfSnake.getX() < 0 || headOfSnake.getX() > 19 || headOfSnake.getY() < 0 || headOfSnake.getY() > 19) {
-            Controller.gameOver();
-        }
+        return headOfSnake.getX() < 0 || headOfSnake.getX() > 19 || headOfSnake.getY() < 0 || headOfSnake.getY() > 19;
     }
 
     public void grow() {
