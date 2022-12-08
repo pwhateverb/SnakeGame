@@ -1,5 +1,7 @@
 package com.example.snakegame;
 
+import com.example.snakegame.Highscores.Highscores;
+import com.example.snakegame.Highscores.IHighscores;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -166,7 +168,9 @@ public class mainMenu extends Application {
         } else if (menuOption == 3) {
             stage.setScene(instructionScene);
         } else if (menuOption == 4) {
-            stage.setScene(instructionScene);
+            IHighscores iHighscores = new Highscores();
+            Scene displayHighscoresScene = iHighscores.displayHighscores(stage, mainMenuScene);
+            stage.setScene(displayHighscoresScene);
         } else if (menuOption == 5) {
             System.exit(0);
         }
