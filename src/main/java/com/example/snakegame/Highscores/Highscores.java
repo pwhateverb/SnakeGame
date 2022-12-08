@@ -171,10 +171,17 @@ public class Highscores implements IHighscores {
         }
 
         Button closeButton = (Button) scene.lookup("#closeButton");
+
+
+        /*
+        todo do last adjustments here
         closeButton.setOnAction(e -> {
             initialStage.setScene(menuScene);
             initialStage.show();
-        });
+        });*/
+
+
+
         Button retryButton = (Button) scene.lookup("#retryButton");
         retryButton.setOnAction(e -> {
             initialStage.setScene(gameScene);
