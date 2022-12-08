@@ -33,8 +33,9 @@ public class Controller extends Application {
         int rowNum = 20;
         int colNum = 20;
 
-        grid.setVgap(0.1);
-        grid.setHgap(0.1);
+        // Add this below for a "grid structure" in the game and see comment below in for loop as well.
+        //grid.setVgap(0.1);
+        //grid.setHgap(0.1);
 
         Color color = Color.BLACK;
         Color snakeColor = Color.web("#00FF00");
@@ -42,8 +43,9 @@ public class Controller extends Application {
         for (int row = 0; row < rowNum; row++) {
             for (int col = 0; col < colNum; col++) {
                 Rectangle rec = new Rectangle();
-                rec.setWidth(39.9);
-                rec.setHeight(39.9);
+                // Set to 39.9 for a "grid structure" in the game
+                rec.setWidth(40);
+                rec.setHeight(40);
                 rec.setFill(color);
                 GridPane.setRowIndex(rec, row);
                 GridPane.setColumnIndex(rec, col);
