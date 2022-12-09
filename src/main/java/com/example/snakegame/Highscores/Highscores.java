@@ -112,7 +112,7 @@ public class Highscores implements IHighscores {
         FXMLLoader fxmlLoader = new FXMLLoader(Controller.class.getResource("display-highscores-layout.fxml"));
         Scene scene = null;
         try {
-            scene = new Scene(fxmlLoader.load(), 320, 240);
+            scene = new Scene(fxmlLoader.load(), 800, 800);
         } catch (IOException e) {
             e.printStackTrace();
             System.out.println(e.getMessage());
@@ -164,7 +164,7 @@ public class Highscores implements IHighscores {
         FXMLLoader fxmlLoader = new FXMLLoader(Controller.class.getResource("post-game-layout.fxml"));
         Scene scene = null;
         try {
-            scene = new Scene(fxmlLoader.load(), 320, 240);
+            scene = new Scene(fxmlLoader.load(), 800, 800);
         } catch (IOException e) {
             System.out.println(e.getMessage());
             e.printStackTrace();

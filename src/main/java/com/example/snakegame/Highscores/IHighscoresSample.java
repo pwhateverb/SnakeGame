@@ -33,7 +33,7 @@ public class IHighscoresSample extends Application {
         Button buttonPost = new Button("Post-game (random score)");
 
         vBox.getChildren().addAll(label, buttonDisplay, buttonPost);
-        Scene menuScene = new Scene(vBox, 320,240);
+        Scene menuScene = new Scene(vBox, 800,800);
 
         buttonDisplay.setOnAction(e->{
             IHighscores iHighscores = new Highscores();
