@@ -21,7 +21,7 @@ public interface IHighscores {
     /**
      * If user achieved a highScore, the gameOver scene displays a prompt like "Input your name to be added to the highscores"
      * It saves user's name and score in a file called "highscores.txt". **/
-    Scene displayPostGame(Stage initialStage, Scene menuScene, Scene gameScene, int score);
+    Scene displayPostGame(Stage initialStage, Scene menuScene, int score);
     //todo: create a new Highscores object & call this method when user presses any key after losing the game, in the Game scene
 
 }
