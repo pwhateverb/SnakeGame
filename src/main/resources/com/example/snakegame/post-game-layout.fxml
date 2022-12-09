@@ -5,29 +5,32 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<StackPane
-        fx:id="stackPane2" style="-fx-background-color: BLACK;"
-        prefHeight="400" prefWidth="600"
-        xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1"
-        fx:controller="com.example.snakegame.Highscores.Highscores">
+<StackPane fx:id="stackPane2" prefHeight="400" prefWidth="600" style="-fx-background-color: BLACK;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.snakegame.Highscores.ScoreEngine">
 
-    <VBox alignment="CENTER" spacing="20.0" style="-fx-background-color: BLACK;" xmlns:fx="http://javafx.com/fxml/1"
-          xmlns="http://javafx.com/javafx/17.0.2-ea">
+    <VBox alignment="CENTER" spacing="20.0" style="-fx-background-color: BLACK;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
         <padding>
-            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
+            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
         </padding>
-        <Label fx:id="gameOver" text="GAME OVER" textFill="#40bc52"/>
-        <Text fx:id="finalScore" text="FINAL SCORE: " fill="#40bc52"/>
+        <Label fx:id="gameOver" text="GAME OVER" textFill="#40bc52">
+         <font>
+            <Font name="Verdana" size="40.0" />
+         </font></Label>
+        <Text fx:id="finalScore" fill="#40bc52" text="FINAL SCORE: ">
+         <font>
+            <Font name="Verdana" size="28.0" />
+         </font></Text>
 
-        <Button id="closeButton" style="-fx-background-color: BLACK;" text="Back To Menu" textFill="#40bc52"/>
-        <Button id="retryButton" style="-fx-background-color: BLACK;" text="RETRY" textFill="#40bc52"/>
+        <Button id="closeButton" style="-fx-background-color: BLACK;" text="Back To Menu" textFill="#40bc52">
+         <font>
+            <Font name="Verdana" size="20.0" />
+         </font></Button>
 
         <HBox alignment="CENTER">
-            <TextField id="result"/>
-            <Button id="saveHighscore" style="-fx-background-color: BLACK;" text="SUBMIT" textFill="#40bc52"/>
+            <TextField id="result" />
+            <Button id="saveHighscore" style="-fx-background-color: BLACK;" text="SUBMIT" textFill="#40bc52" />
         </HBox>
 
-        <Text id="submitLabel" fill="#40bc52"/>
+        <Text id="submitLabel" fill="#40bc52" />
 
     </VBox>
 </StackPane>

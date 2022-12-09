@@ -1,7 +1,7 @@
 package com.example.snakegame;
 
-import com.example.snakegame.Highscores.Highscores;
-import com.example.snakegame.Highscores.IHighscores;
+import com.example.snakegame.Highscores.ScoreEngine;
+import com.example.snakegame.Highscores.Scorable;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -18,22 +18,26 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
-import java.io.IOException;
-
 public class mainMenu extends Application {
 
-    private static final Rectangle menuPointer = new Rectangle();
-
-    private static int menuOption = 1;
-    private static int pointPosition = -87;
-    private static final String END_OF_LINE = System.lineSeparator();
-
-    Scene mainMenuScene, instructionScene;
+    private final Rectangle menuPointer = new Rectangle();
+    private int menuOption = 1;
+    private int pointPosition = -87;
+    private final String END_OF_LINE = System.lineSeparator();
     Stage stage;
     @Override
-    public void start(Stage stage) throws IOException {
+    public void start(Stage stage) {
 
         this.stage = stage;
+
+        stage.setTitle("Snake Game");
+        stage.setScene(getMainMenuScene());
+        stage.show();
+    }
+
+
+    Scene getMainMenuScene(){
+
         Text mainMenu = new Text("SNAKE GAME" + END_OF_LINE + "MAIN MENU");
         mainMenu.setFont(Font.font("Verdana", FontWeight.BOLD, 28));
         mainMenu.setTextAlignment(TextAlignment.CENTER);
@@ -80,7 +84,7 @@ public class mainMenu extends Application {
         mainMenuLayout.setBackground(new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY)));
         mainMenuLayout.getChildren().addAll(mainMenu, singlePlayer, coOpMode, instructions, highScores, exitGame, menuPointer);
 
-        mainMenuScene = new Scene(mainMenuLayout, 800, 800);
+        Scene mainMenuScene = new Scene(mainMenuLayout, 800, 800);
         mainMenuScene.setOnKeyPressed(event -> {
             switch (event.getCode()) {
                 case UP:
@@ -103,6 +107,11 @@ public class mainMenu extends Application {
             }
         });
 
+        return mainMenuScene;
+
+    }
+
+    Scene getInstructionScene(){
         Text instructionString = new Text("Welcome!" + END_OF_LINE +
                 END_OF_LINE + "This game will let you control a Snake that eats food to grow bigger" +
                 END_OF_LINE + "You control the Snake by pressing the UP, DOWN, LEFT, RIGHT keys on your keyboard" +
@@ -127,17 +136,17 @@ public class mainMenu extends Application {
         instructionLayout.getChildren().addAll(instructionString, goBack);
         instructionLayout.setBackground(new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY)));
 
-        instructionScene = new Scene(instructionLayout, 800, 800);
+        Scene instructionScene = new Scene(instructionLayout, 800, 800);
+
         instructionScene.setOnKeyPressed(event -> {
             if(event.getCode() == KeyCode.ENTER) {
-                stage.setScene(mainMenuScene);
+                stage.setScene(getMainMenuScene());
             }
         });
 
-        stage.setTitle("Snake Game");
-        stage.setScene(mainMenuScene);
-        stage.show();
+        return instructionScene;
     }
+
 
     public void paintPointer(int menuOption) {
         if (menuOption == 1) {
@@ -156,22 +165,22 @@ public class mainMenu extends Application {
 
     public void changeMenuOption(int menuOption) {
         this.menuOption = menuOption;
-        paintPointer(this.menuOption);
+        paintPointer(menuOption);
     }
 
     //method for changing scene in the menu
     public void activate(int menuOption) {
         if (menuOption == 1) {
-            Controller controller = new Controller(stage, mainMenuScene);
+            Controller controller = new Controller(stage, getMainMenuScene());
             Scene displayGameScene = controller.play();
             stage.setScene(displayGameScene);
         } else if (menuOption == 2) {
-            stage.setScene(instructionScene);
+            stage.setScene(getInstructionScene());
         } else if (menuOption == 3) {
-            stage.setScene(instructionScene);
+            stage.setScene(getInstructionScene());
         } else if (menuOption == 4) {
-            IHighscores iHighscores = new Highscores();
-            Scene displayHighscoresScene = iHighscores.displayHighscores(stage, mainMenuScene);
+            Scorable scorable = new ScoreEngine();
+            Scene displayHighscoresScene = scorable.displayHighscores(stage, getMainMenuScene());
             stage.setScene(displayHighscoresScene);
         } else if (menuOption == 5) {
             stage.close();

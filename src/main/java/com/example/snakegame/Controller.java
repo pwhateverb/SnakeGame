@@ -1,11 +1,10 @@
 package com.example.snakegame;
 
-import com.example.snakegame.Highscores.Highscores;
-import com.example.snakegame.Highscores.IHighscores;
+import com.example.snakegame.Highscores.ScoreEngine;
+import com.example.snakegame.Highscores.Scorable;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
@@ -149,8 +148,8 @@ public class Controller {
 
     public void gameOver() {
         timeline.stop();
-        IHighscores iHighscores = new Highscores();
-        Scene postGameScreen = iHighscores.displayPostGame(stage, mainMenuScene, points);
+        Scorable scorable = new ScoreEngine();
+        Scene postGameScreen = scorable.displayPostGame(stage, mainMenuScene, points);
         stage.setScene(postGameScreen);
         stage.show();
     }

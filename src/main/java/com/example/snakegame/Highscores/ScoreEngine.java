@@ -11,6 +11,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.*;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -22,7 +24,7 @@ import java.lang.reflect.Type;
 import java.util.*;
 
 
-public class Highscores implements IHighscores {
+public class ScoreEngine implements Scorable {
 
     String fileName = "highscores.txt";
 
@@ -135,10 +137,12 @@ public class Highscores implements IHighscores {
         }
         Text textLeft = (Text) scene.lookup("#textLeft");
         textLeft.setText(String.valueOf(stringLeft));
+        textLeft.setFont(Font.font("Verdana", FontWeight.BOLD, 28));
 
         Text textRight = (Text) scene.lookup("#textRight");
-        ;
+
         textRight.setText(String.valueOf(stringRight));
+        textRight.setFont(Font.font("Verdana", FontWeight.BOLD, 28));
 
         StackPane stackPane = (StackPane) scene.lookup("#stackPane");
 
@@ -180,15 +184,16 @@ public class Highscores implements IHighscores {
 
         closeButton.setOnAction(e -> {
             initialStage.setScene(menuScene);
-            initialStage.show();
         });
 
 
         Text finalScore = (Text) scene.lookup("#finalScore");
         finalScore.setText("FINAL SCORE: " + score);
+        finalScore.setFont(Font.font("Verdana", FontWeight.BOLD, 28));
 
 
         TextField result = (TextField) scene.lookup("#result");
+        result.setFont(Font.font("Verdana", FontWeight.BOLD, 28));
 
         String styles =
                 "-fx-background-color: black;" +
@@ -198,7 +203,7 @@ public class Highscores implements IHighscores {
         result.setStyle(styles);
 
 
-        result.setMaxSize(50,50);
+        result.setMaxSize(200,50);
         Button saveHighscore = (Button) scene.lookup("#saveHighscore");
 
         Platform.runLater(result::requestFocus);
@@ -208,6 +213,8 @@ public class Highscores implements IHighscores {
 
 
         Text submitLabel = (Text) scene.lookup("#submitLabel");
+        submitLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 28));
+
         if (highscoreCheck(score)) {
             result.setManaged(true);
             saveHighscore.setManaged(true);
@@ -228,9 +235,11 @@ public class Highscores implements IHighscores {
                         submitLabel.setText(result.getText()+"'s highscore submitted ("+ score +" points)");
                     }
                 }
-
-
             }
+            if( event.getCode() == KeyCode.ESCAPE ) {
+                initialStage.setScene(menuScene);
+            }
+
         } );
 
         /*saveHighscore.setOnAction(e -> {
