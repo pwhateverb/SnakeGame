@@ -138,8 +138,6 @@ public class Controller {
                         }
                     }
 
-
-
                 }));
         // Play frames
         timeline.setCycleCount(Animation.INDEFINITE);
@@ -152,8 +150,7 @@ public class Controller {
     public void gameOver() {
         timeline.stop();
         IHighscores iHighscores = new Highscores();
-        Controller controller = new Controller(stage,mainMenuScene);
-        Scene postGameScreen = iHighscores.displayPostGame(stage, mainMenuScene, controller.play(), points);
+        Scene postGameScreen = iHighscores.displayPostGame(stage, mainMenuScene, points);
         stage.setScene(postGameScreen);
         stage.show();
     }
