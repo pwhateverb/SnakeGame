@@ -5,7 +5,6 @@ import com.example.snakegame.Highscores.IHighscores;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
@@ -24,6 +23,9 @@ public class Controller {
     private final Food foodTest = new Food();
     private final ArrayList<Rectangle> snakeParts = new ArrayList<>();
     private int points = 0; // Show this number in the UI
+
+    private boolean keyPressed = false;
+
 
     Controller(Stage stage, Scene mainMenuScene) {
         this.stage = stage;
@@ -61,7 +63,6 @@ public class Controller {
             }
         }
 
-        //Fix and expand over several grids, too small atm
         Label score = new Label("Score: " + points);
         score.setWrapText(true);
         GridPane.setColumnSpan(score, 3);
@@ -85,15 +86,27 @@ public class Controller {
         // Gather key inputs
         scene.setOnKeyPressed(event -> {
             switch (event.getCode()) {
-                case UP -> snakeTest.setDirection("up");
-                case RIGHT -> snakeTest.setDirection("right");
-                case DOWN -> snakeTest.setDirection("down");
-                case LEFT -> snakeTest.setDirection("left");
+                case UP -> {
+                    if(!keyPressed){ snakeTest.setDirection("up");
+                        keyPressed = true;}
+                }
+                case RIGHT -> {
+                    if(!keyPressed){ snakeTest.setDirection("right");
+                        keyPressed = true;}
+                }
+                case DOWN -> {
+                    if(!keyPressed){ snakeTest.setDirection("down");
+                        keyPressed = true;}
+                }
+                case LEFT -> {
+                    if(!keyPressed){ snakeTest.setDirection("left");
+                        keyPressed = true;}
+                }
             }
         });
 
         // ms between each frame update (lower number == harder game)
-        int difficulty = 150;
+        int difficulty = 120;
 
         // Frame updater
          timeline = new Timeline(
@@ -139,7 +152,7 @@ public class Controller {
                     }
 
 
-
+                keyPressed = false;
                 }));
         // Play frames
         timeline.setCycleCount(Animation.INDEFINITE);
