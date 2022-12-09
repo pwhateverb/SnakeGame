@@ -26,7 +26,6 @@ public class Controller {
 
     private boolean keyPressed = false;
 
-
     Controller(Stage stage, Scene mainMenuScene) {
         this.stage = stage;
         this.mainMenuScene = mainMenuScene;
@@ -43,9 +42,10 @@ public class Controller {
         int rowNum = 20;
         int colNum = 20;
 
-        // Add this below for a "grid structure" in the game and see comment below in for loop as well.
-        //grid.setVgap(0.1);
-        //grid.setHgap(0.1);
+        // Add this below for a "grid structure" in the game and see comment below in
+        // for loop as well.
+        // grid.setVgap(0.1);
+        // grid.setHgap(0.1);
 
         Color color = Color.BLACK;
         Color snakeColor = Color.web("#00FF00");
@@ -65,7 +65,7 @@ public class Controller {
 
         Label score = new Label("Score: " + points);
         score.setWrapText(true);
-        GridPane.setColumnSpan(score, 3);
+        GridPane.setColumnSpan(score, 5);
         GridPane.setColumnIndex(score, 1);
         GridPane.setRowIndex(score, 0);
         score.setFont(new Font("Verdana", 28));
@@ -87,20 +87,28 @@ public class Controller {
         scene.setOnKeyPressed(event -> {
             switch (event.getCode()) {
                 case UP -> {
-                    if(!keyPressed){ snakeTest.setDirection("up");
-                        keyPressed = true;}
+                    if (!keyPressed) {
+                        snakeTest.setDirection("up");
+                        keyPressed = true;
+                    }
                 }
                 case RIGHT -> {
-                    if(!keyPressed){ snakeTest.setDirection("right");
-                        keyPressed = true;}
+                    if (!keyPressed) {
+                        snakeTest.setDirection("right");
+                        keyPressed = true;
+                    }
                 }
                 case DOWN -> {
-                    if(!keyPressed){ snakeTest.setDirection("down");
-                        keyPressed = true;}
+                    if (!keyPressed) {
+                        snakeTest.setDirection("down");
+                        keyPressed = true;
+                    }
                 }
                 case LEFT -> {
-                    if(!keyPressed){ snakeTest.setDirection("left");
-                        keyPressed = true;}
+                    if (!keyPressed) {
+                        snakeTest.setDirection("left");
+                        keyPressed = true;
+                    }
                 }
             }
         });
@@ -109,7 +117,7 @@ public class Controller {
         int difficulty = 120;
 
         // Frame updater
-         timeline = new Timeline(
+        timeline = new Timeline(
                 new KeyFrame(Duration.millis(difficulty), event -> {
                     snakeTest.move();
 
@@ -128,7 +136,7 @@ public class Controller {
                     if (foodTest.getFoodY() == GridPane.getRowIndex(snakeParts.get(0))
                             && foodTest.getFoodX() == GridPane.getColumnIndex(snakeParts.get(0))) {
                         points++;
-                        score.setText("Score: " + points);
+                        score.setText("Score: " + 10);
                         System.out.println("Current points: " + points);
                         snakeTest.grow();
 
@@ -151,8 +159,7 @@ public class Controller {
                         }
                     }
 
-
-                keyPressed = false;
+                    keyPressed = false;
                 }));
         // Play frames
         timeline.setCycleCount(Animation.INDEFINITE);
@@ -161,11 +168,10 @@ public class Controller {
         return scene;
     }
 
-
     public void gameOver() {
         timeline.stop();
         IHighscores iHighscores = new Highscores();
-        Controller controller = new Controller(stage,mainMenuScene);
+        Controller controller = new Controller(stage, mainMenuScene);
         Scene postGameScreen = iHighscores.displayPostGame(stage, mainMenuScene, controller.play(), 1000);
         stage.setScene(postGameScreen);
         stage.show();
