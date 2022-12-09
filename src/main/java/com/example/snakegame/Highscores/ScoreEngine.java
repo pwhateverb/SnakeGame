@@ -181,7 +181,6 @@ public class ScoreEngine implements Scorable {
         Button closeButton = (Button) scene.lookup("#closeButton");
 
 
-
         closeButton.setOnAction(e -> {
             initialStage.setScene(menuScene);
         });
@@ -203,13 +202,12 @@ public class ScoreEngine implements Scorable {
         result.setStyle(styles);
 
 
-        result.setMaxSize(200,50);
+        result.setMaxSize(200, 50);
         Button saveHighscore = (Button) scene.lookup("#saveHighscore");
 
         Platform.runLater(result::requestFocus);
 
         //result.requestFocus();
-
 
 
         Text submitLabel = (Text) scene.lookup("#submitLabel");
@@ -224,23 +222,37 @@ public class ScoreEngine implements Scorable {
             result.setManaged(false);
         }
 
-        result.setOnKeyPressed( event -> {
-            if( event.getCode() == KeyCode.ENTER ) {
-                if(!saveHighscore.isDisable()){
-                    if(result.getText().equals("")){
+        result.setOnKeyPressed(event -> {
+            if (event.getCode() == KeyCode.ENTER) {
+                if (!saveHighscore.isDisable()) {
+                    if (result.getText().equals("")) {
                         submitLabel.setText("NAME CAN'T BE BLANK. WRITE A VALID NAME");
+
+                        Thread thread = new Thread(() -> {
+                            try {
+                                Thread.sleep(1000);
+                                if(!submitLabel.getText().equals("")){
+                                    submitLabel.setText("");
+                                }
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                                System.out.println(e.getMessage());
+                            }
+                        });
+                        thread.start();
+
                     } else {
                         saveHighscore(result.getText(), score);
                         saveHighscore.setDisable(true);
-                        submitLabel.setText(result.getText()+"'s highscore submitted ("+ score +" points)");
+                        submitLabel.setText(result.getText() + "'s highscore submitted (" + score + " points)");
                     }
                 }
             }
-            if( event.getCode() == KeyCode.ESCAPE ) {
+            if (event.getCode() == KeyCode.ESCAPE) {
                 initialStage.setScene(menuScene);
             }
 
-        } );
+        });
 
         /*saveHighscore.setOnAction(e -> {
             if(result.getText().equals("")){

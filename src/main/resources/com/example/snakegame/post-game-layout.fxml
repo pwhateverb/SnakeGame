@@ -20,14 +20,14 @@
             <Font name="Verdana" size="28.0" />
          </font></Text>
 
-        <Button id="closeButton" style="-fx-background-color: BLACK;" text="Back To Menu" textFill="#40bc52">
+        <Button id="closeButton" style="-fx-background-color: BLACK;" text="Press Esc to return" textFill="#40bc52">
          <font>
             <Font name="Verdana" size="20.0" />
          </font></Button>
 
         <HBox alignment="CENTER">
             <TextField id="result" />
-            <Button id="saveHighscore" style="-fx-background-color: BLACK;" text="SUBMIT" textFill="#40bc52" />
+            <Button id="saveHighscore" style="-fx-background-color: BLACK;" text="(ENTER FOR SUBMIT)" textFill="#40bc52" />
         </HBox>
 
         <Text id="submitLabel" fill="#40bc52" />
