@@ -1,1 +1,1 @@
-[{"name":"ab","score":9486},{"name":"the_best","score":9419},{"name":"e","score":9224},{"name":"ljkhghcfgvm,","score":8728},{"name":"f","score":8237},{"name":"hghmbjn","score":6180},{"name":"q","score":6061},{"name":"q","score":5903},{"name":"BADJORAS","score":4410},{"name":"BADJORAS II","score":4410}]
+[{"name":"DSA","score":0}]
