@@ -136,7 +136,7 @@ public class Controller {
                     if (foodTest.getFoodY() == GridPane.getRowIndex(snakeParts.get(0))
                             && foodTest.getFoodX() == GridPane.getColumnIndex(snakeParts.get(0))) {
                         points++;
-                        score.setText("Score: " + 10);
+                        score.setText("Score: " + points);
                         System.out.println("Current points: " + points);
                         snakeTest.grow();
 

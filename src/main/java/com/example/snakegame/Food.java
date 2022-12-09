@@ -11,7 +11,7 @@ public class Food {
     Random rand = new Random();
 
     public Food() {
-        food = new Rectangle(40, 40, Color.RED);
+        food = new Rectangle(40, 40, Color.ORANGERED);
         // set food to random position
         int x = rand.nextInt(19);
         int y = rand.nextInt(19);
