@@ -153,7 +153,7 @@ public class Controller {
         timeline.stop();
         IHighscores iHighscores = new Highscores();
         Controller controller = new Controller(stage,mainMenuScene);
-        Scene postGameScreen = iHighscores.displayPostGame(stage, mainMenuScene, controller.play(), 1000);
+        Scene postGameScreen = iHighscores.displayPostGame(stage, mainMenuScene, controller.play(), points);
         stage.setScene(postGameScreen);
         stage.show();
     }
