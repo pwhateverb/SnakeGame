@@ -3,11 +3,13 @@ package com.example.snakegame.Highscores;
 import com.example.snakegame.Controller;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -159,12 +161,14 @@ public class Highscores implements IHighscores {
 
 
     @Override
-    public Scene displayPostGame(Stage initialStage, Scene menuScene, Scene gameScene, int score) {
+    public Scene displayPostGame(Stage initialStage, Scene menuScene, int score) {
 
         FXMLLoader fxmlLoader = new FXMLLoader(Controller.class.getResource("post-game-layout.fxml"));
         Scene scene = null;
         try {
             scene = new Scene(fxmlLoader.load(), 800, 800);
+//todo            scene.getStylesheets().add("path/post-game-stylesheet.css");
+
         } catch (IOException e) {
             System.out.println(e.getMessage());
             e.printStackTrace();
@@ -173,18 +177,9 @@ public class Highscores implements IHighscores {
         Button closeButton = (Button) scene.lookup("#closeButton");
 
 
-        /*
-        todo do last adjustments here
+
         closeButton.setOnAction(e -> {
             initialStage.setScene(menuScene);
-            initialStage.show();
-        });*/
-
-
-
-        Button retryButton = (Button) scene.lookup("#retryButton");
-        retryButton.setOnAction(e -> {
-            initialStage.setScene(gameScene);
             initialStage.show();
         });
 
@@ -194,8 +189,23 @@ public class Highscores implements IHighscores {
 
 
         TextField result = (TextField) scene.lookup("#result");
+
+        String styles =
+                "-fx-background-color: black;" +
+                        "-fx-background-insets: 0;" +
+                        "-fx-padding: 1 3 1 3;" +
+                        "-fx-text-fill: #40bc52";
+        result.setStyle(styles);
+
+
         result.setMaxSize(50,50);
         Button saveHighscore = (Button) scene.lookup("#saveHighscore");
+
+        Platform.runLater(result::requestFocus);
+
+        //result.requestFocus();
+
+
 
         Text submitLabel = (Text) scene.lookup("#submitLabel");
         if (highscoreCheck(score)) {
@@ -207,7 +217,23 @@ public class Highscores implements IHighscores {
             result.setManaged(false);
         }
 
-        saveHighscore.setOnAction(e -> {
+        result.setOnKeyPressed( event -> {
+            if( event.getCode() == KeyCode.ENTER ) {
+                if(!saveHighscore.isDisable()){
+                    if(result.getText().equals("")){
+                        submitLabel.setText("NAME CAN'T BE BLANK. WRITE A VALID NAME");
+                    } else {
+                        saveHighscore(result.getText(), score);
+                        saveHighscore.setDisable(true);
+                        submitLabel.setText(result.getText()+"'s highscore submitted ("+ score +" points)");
+                    }
+                }
+
+
+            }
+        } );
+
+        /*saveHighscore.setOnAction(e -> {
             if(result.getText().equals("")){
                 submitLabel.setText("NAME CAN'T BE BLANK. WRITE A VALID NAME");
             } else {
@@ -215,7 +241,7 @@ public class Highscores implements IHighscores {
                 saveHighscore.setDisable(true);
                 submitLabel.setText(result.getText()+"'s highscore submitted ("+ score +" points)");
             }
-        });
+        });*/
         StackPane stackPane2 = (StackPane) scene.lookup("#stackPane2");
         stackPane2.setPadding(new Insets(20));
 
