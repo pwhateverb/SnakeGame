@@ -24,6 +24,8 @@ public class Controller {
     private final ArrayList<Rectangle> snakeParts = new ArrayList<>();
     private int points = 0; // Show this number in the UI
 
+    private boolean keyPressed = false;
+
     Controller(Stage stage, Scene mainMenuScene) {
         this.stage = stage;
         this.mainMenuScene = mainMenuScene;
@@ -40,9 +42,10 @@ public class Controller {
         int rowNum = 20;
         int colNum = 20;
 
-        // Add this below for a "grid structure" in the game and see comment below in for loop as well.
-        //grid.setVgap(0.1);
-        //grid.setHgap(0.1);
+        // Add this below for a "grid structure" in the game and see comment below in
+        // for loop as well.
+        // grid.setVgap(0.1);
+        // grid.setHgap(0.1);
 
         Color color = Color.BLACK;
         Color snakeColor = Color.web("#00FF00");
@@ -60,10 +63,9 @@ public class Controller {
             }
         }
 
-        //Fix and expand over several grids, too small atm
         Label score = new Label("Score: " + points);
         score.setWrapText(true);
-        GridPane.setColumnSpan(score, 3);
+        GridPane.setColumnSpan(score, 5);
         GridPane.setColumnIndex(score, 1);
         GridPane.setRowIndex(score, 0);
         score.setFont(new Font("Verdana", 28));
@@ -84,18 +86,38 @@ public class Controller {
         // Gather key inputs
         scene.setOnKeyPressed(event -> {
             switch (event.getCode()) {
-                case UP -> snakeTest.setDirection("up");
-                case RIGHT -> snakeTest.setDirection("right");
-                case DOWN -> snakeTest.setDirection("down");
-                case LEFT -> snakeTest.setDirection("left");
+                case UP -> {
+                    if (!keyPressed) {
+                        snakeTest.setDirection("up");
+                        keyPressed = true;
+                    }
+                }
+                case RIGHT -> {
+                    if (!keyPressed) {
+                        snakeTest.setDirection("right");
+                        keyPressed = true;
+                    }
+                }
+                case DOWN -> {
+                    if (!keyPressed) {
+                        snakeTest.setDirection("down");
+                        keyPressed = true;
+                    }
+                }
+                case LEFT -> {
+                    if (!keyPressed) {
+                        snakeTest.setDirection("left");
+                        keyPressed = true;
+                    }
+                }
             }
         });
 
         // ms between each frame update (lower number == harder game)
-        int difficulty = 150;
+        int difficulty = 120;
 
         // Frame updater
-         timeline = new Timeline(
+        timeline = new Timeline(
                 new KeyFrame(Duration.millis(difficulty), event -> {
                     snakeTest.move();
 
@@ -137,6 +159,7 @@ public class Controller {
                         }
                     }
 
+                    keyPressed = false;
                 }));
         // Play frames
         timeline.setCycleCount(Animation.INDEFINITE);
@@ -144,7 +167,6 @@ public class Controller {
 
         return scene;
     }
-
 
     public void gameOver() {
         timeline.stop();
