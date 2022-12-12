@@ -1,1 +1,1 @@
-[{"name":"abed","score":1},{"name":"DSA","score":0}]
+[{"name":"Lugia","score":999}{"name":"Zapdos","score":33},{"name":"Lulu","score":20},{"Lux":"","score":16}]
