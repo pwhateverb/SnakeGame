@@ -6,13 +6,12 @@ import javafx.scene.paint.Color;
 import java.util.Random;
 
 public class Food {
-
     private Rectangle food;
     Random rand = new Random();
 
     public Food() {
+        // Food is placed in a random position on the grid when instantiated.
         food = new Rectangle(40, 40, Color.ORANGERED);
-        // set food to random position
         int x = rand.nextInt(19);
         int y = rand.nextInt(19);
         GridPane.setColumnIndex(food, x);
@@ -24,10 +23,12 @@ public class Food {
     }
 
     public void generateFood(Snake snake) {
+        // Generates a new food in a random position on the grid.
         boolean foodOnSnake = true;
         while (foodOnSnake) {
             int x = rand.nextInt(19);
             int y = rand.nextInt(19);
+            // Checks if the food is placed on/under the snake. If so, repeat the process.
             for (int i = 0; i < snake.getBody().size(); i++) {
                 if (snake.getBody().get(i).getX() == x && snake.getBody().get(i).getY() == y) {
                     foodOnSnake = true;
@@ -44,10 +45,12 @@ public class Food {
     }
 
     public int getFoodX() {
+        // returns the x position of the food on the grid
         return GridPane.getColumnIndex(food);
     }
 
     public int getFoodY() {
+        // returns the y position of the food on the grid
         return GridPane.getRowIndex(food);
     }
 
