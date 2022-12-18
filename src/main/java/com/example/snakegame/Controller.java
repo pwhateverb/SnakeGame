@@ -6,13 +6,14 @@ import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -67,14 +68,20 @@ public class Controller {
 
         // Styling
         borderPane.setStyle("-fx-background-color: black");
-        vBox.setPadding(new javafx.geometry.Insets(12, 12, 12, 12));
-        vBox.setStyle("-fx-border-color: Limegreen; -fx-border-width: 0 0 2 0;");
+        vBox.setPadding(new javafx.geometry.Insets(20, 20, 20, 20));
+        grid.setStyle("-fx-border-color: limegreen; -fx-border-width: 1;");
 
         // Score label
-        Label score = new Label("SCORE: " + points);
-        score.setFont(new Font("Verdana", 30));
-        score.setTextFill(snakeColor);
-        score.setStyle("-fx-font-weight: semi-bold");
+        TextFlow score = new TextFlow();
+        Text scoreText = new Text("SCORE: ");
+        scoreText.setFill(Color.WHITE);
+        scoreText.setFont(new Font("Verdana", 30));
+
+        Text scoreNumber = new Text(String.valueOf(points));
+        scoreNumber.setFill(snakeColor);
+        scoreNumber.setFont(new Font("Verdana", 34));
+
+        score.getChildren().addAll(scoreText, scoreNumber);
         vBox.getChildren().add(score);
 
         scene = new Scene(borderPane);
@@ -141,15 +148,13 @@ public class Controller {
                     if (foodTest.getFoodY() == GridPane.getRowIndex(snakeParts.get(0))
                             && foodTest.getFoodX() == GridPane.getColumnIndex(snakeParts.get(0))) {
                         points++;
-                        score.setText("SCORE: " + points);
-                        System.out.println("Current points: " + points);
+                        scoreNumber.setText(String.valueOf(points));
                         snakeTest.grow();
 
                         // Grow snake by 1
                         snakeParts.add(new Rectangle(39.8, 39.8, snakeColor));
                         GridPane.setColumnIndex(snakeParts.get(snakeParts.size() - 1), snakeTest.getTail().getX());
                         GridPane.setRowIndex(snakeParts.get(snakeParts.size() - 1), snakeTest.getTail().getY());
-                        System.out.println(snakeParts.size() == snakeTest.getBody().size());
                         grid.getChildren().add(snakeParts.get(snakeParts.size() - 1));
                         // Generate new food
                         foodTest.generateFood(snakeTest);
