@@ -7,7 +7,9 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
@@ -19,6 +21,8 @@ import java.util.ArrayList;
 public class Controller {
     Timeline timeline;
     private final GridPane grid = new GridPane();
+    private final VBox vBox = new VBox();
+    private final BorderPane borderPane = new BorderPane();
     private final Snake snakeTest = new Snake();
     private final Food foodTest = new Food();
     private final ArrayList<Rectangle> snakeParts = new ArrayList<>();
@@ -28,6 +32,7 @@ public class Controller {
 
     Controller(Stage stage, Scene mainMenuScene) {
         this.stage = stage;
+        stage.setResizable(false);
         this.mainMenuScene = mainMenuScene;
         timeline = null;
     }
@@ -42,10 +47,8 @@ public class Controller {
         int rowNum = 20;
         int colNum = 20;
 
-        // Add this below for a "grid structure" in the game and see comment below in
-        // for loop as well.
-        // grid.setVgap(0.1);
-        // grid.setHgap(0.1);
+        borderPane.setCenter(grid);
+        borderPane.setTop(vBox);
 
         Color color = Color.BLACK;
         Color snakeColor = Color.web("#00FF00");
@@ -53,7 +56,6 @@ public class Controller {
         for (int row = 0; row < rowNum; row++) {
             for (int col = 0; col < colNum; col++) {
                 Rectangle rec = new Rectangle();
-                // Set to 39.9 for a "grid structure" in the game
                 rec.setWidth(40);
                 rec.setHeight(40);
                 rec.setFill(color);
@@ -63,16 +65,19 @@ public class Controller {
             }
         }
 
-        Label score = new Label("Score: " + points);
-        score.setWrapText(true);
-        GridPane.setColumnSpan(score, 5);
-        GridPane.setColumnIndex(score, 1);
-        GridPane.setRowIndex(score, 0);
-        score.setFont(new Font("Verdana", 28));
-        score.setStyle("-fx-font: 100px Verdana; -fx-font-weight: bold; -fx-text-fill: #32CD32; -fx-font-size: 25;");
-        grid.getChildren().add(score);
+        // Styling
+        borderPane.setStyle("-fx-background-color: black");
+        vBox.setPadding(new javafx.geometry.Insets(12, 12, 12, 12));
+        vBox.setStyle("-fx-border-color: Limegreen; -fx-border-width: 0 0 2 0;");
 
-        scene = new Scene(grid, 800, 800);
+        // Score label
+        Label score = new Label("SCORE: " + points);
+        score.setFont(new Font("Verdana", 30));
+        score.setTextFill(snakeColor);
+        score.setStyle("-fx-font-weight: semi-bold");
+        vBox.getChildren().add(score);
+
+        scene = new Scene(borderPane);
 
         // initialize snake parts
         for (int i = 0; i < snakeTest.getBody().size(); i++) {
@@ -136,7 +141,7 @@ public class Controller {
                     if (foodTest.getFoodY() == GridPane.getRowIndex(snakeParts.get(0))
                             && foodTest.getFoodX() == GridPane.getColumnIndex(snakeParts.get(0))) {
                         points++;
-                        score.setText("Score: " + points);
+                        score.setText("SCORE: " + points);
                         System.out.println("Current points: " + points);
                         snakeTest.grow();
 
