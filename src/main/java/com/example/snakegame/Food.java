@@ -13,7 +13,7 @@ public class Food {
         // Food is placed in a random position on the grid when instantiated.
         food = new Rectangle(40, 40, Color.ORANGERED);
         int x = rand.nextInt(19);
-        int y = rand.nextInt(19);
+        int y = rand.nextInt(16);
         GridPane.setColumnIndex(food, x);
         GridPane.setRowIndex(food, y);
     }
@@ -27,7 +27,7 @@ public class Food {
         boolean foodOnSnake = true;
         while (foodOnSnake) {
             int x = rand.nextInt(19);
-            int y = rand.nextInt(19);
+            int y = rand.nextInt(16);
             // Checks if the food is placed on/under the snake. If so, repeat the process.
             for (int i = 0; i < snake.getBody().size(); i++) {
                 if (snake.getBody().get(i).getX() == x && snake.getBody().get(i).getY() == y) {

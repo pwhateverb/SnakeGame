@@ -45,7 +45,7 @@ public class Controller {
     public Scene play() {
 
         // Setting up stage
-        int rowNum = 20;
+        int rowNum = 17;
         int colNum = 20;
 
         borderPane.setCenter(grid);
@@ -68,8 +68,8 @@ public class Controller {
 
         // Styling
         borderPane.setStyle("-fx-background-color: black");
-        vBox.setPadding(new javafx.geometry.Insets(20, 20, 20, 20));
-        grid.setStyle("-fx-border-color: limegreen; -fx-border-width: 1;");
+        vBox.setPadding(new javafx.geometry.Insets(15, 15, 15, 15));
+        vBox.setStyle("-fx-border-color: green; -fx-border-width: 0 0 1 0;");
 
         // Score label
         TextFlow score = new TextFlow();
