@@ -6,16 +6,17 @@ public class Snake {
 
     private ArrayList<Point> bodyParts;
     private Point headOfSnake;
-    private String direction = "left";
+    private String direction;
 
 
 
-    public Snake() {
+    public Snake(int x, int y, String direction) {
         bodyParts = new ArrayList<>();
         for (int i = 0; i < 4; i++) {
-            bodyParts.add(new Point(10, 10));
+            bodyParts.add(new Point(x, y));
         }
 
+        this.direction = direction;
         headOfSnake = bodyParts.get(0);
     }
 
@@ -76,7 +77,6 @@ public class Snake {
                 || (this.direction.equals("left") && direction.equals("right"))
                 || (this.direction.equals("up") && direction.equals("down"))
                 || (this.direction.equals("down") && direction.equals("up"))) {
-            ;
         } else {
             this.direction = direction;
         }

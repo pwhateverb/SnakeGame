@@ -24,7 +24,7 @@ public class Controller {
     private final GridPane grid = new GridPane();
     private final VBox vBox = new VBox();
     private final BorderPane borderPane = new BorderPane();
-    private final Snake snakeTest = new Snake();
+    private final Snake snakeTest = new Snake(10, 10, "left");
     private final Food foodTest = new Food();
     private final ArrayList<Rectangle> snakeParts = new ArrayList<>();
     private int points = 0; // Show this number in the UI
