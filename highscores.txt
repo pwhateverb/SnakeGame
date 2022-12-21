@@ -1,1 +1,1 @@
-[{"name":"Zapdos","score":4},{"name":"Anivia","score":2},{"name":"Lugia","score":2},{"name":"Lux","score":1},{"name":"Kha\u0027Zix","score":1}]
+[{"name":"The very best","score":56},{"name":"BESSTESST","score":53},{"name":"Amin","score":49},{"name":"Mechs","score":46},{"name":"David","score":12},{"name":"Mech","score":5},{"name":"Zapdos","score":4},{"name":"Anivia","score":2},{"name":"Lugia","score":2},{"name":"Kha\u0027Zix","score":1}]
