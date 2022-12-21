@@ -29,3 +29,6 @@ build/
 
 ### Mac OS ###
 .DS_Store
+
+### Highscores ###
+highscores.txt
