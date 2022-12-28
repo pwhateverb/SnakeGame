@@ -5,14 +5,10 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
-import javafx.scene.layout.*;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -24,10 +20,24 @@ import java.lang.reflect.Type;
 import java.util.*;
 
 
+/**
+ * Implementation of the post-game and highscore functionalities.
+ * <p/>
+ * Used through the interface {@link com.example.snakegame.Highscores.Scorable}.
+ **/
+
 public class ScoreEngine implements Scorable {
 
+    /**
+     * Saved highscores get placed in this file.
+     */
     String fileName = "highscores.txt";
 
+    /**
+     * Reads the file related to the path string in the fileName attribute.
+     *
+     * @return An arrayList of Highscore objects
+     */
     private ArrayList<Highscore> readFromFile() {
         Gson gson = new Gson();
         Type type = new TypeToken<ArrayList<Highscore>>() {
@@ -50,6 +60,9 @@ public class ScoreEngine implements Scorable {
         }
     }
 
+    /**
+     * Saves an arrayList of Highscore objects into the file related to the path string in the fileName attribute.
+     */
     private void saveToFile(ArrayList<Highscore> highscoreList) {
         Gson gson = new Gson();
         try {
@@ -63,6 +76,11 @@ public class ScoreEngine implements Scorable {
         }
     }
 
+    /**
+     * Used to determine whether a new Highscore object should be created.
+     *
+     * @return boolean value of whether a certain score is high enough to belong to the Top 10.
+     */
     private boolean highscoreCheck(int score) {
         ArrayList<Highscore> highscoreList = readFromFile();
         int amountOfHighscoresSaved = 10;
@@ -83,7 +101,9 @@ public class ScoreEngine implements Scorable {
         }
     }
 
-
+    /**
+     * Creates a Highscore object and updates the file containing the top-10 highscores.
+     */
     private void saveHighscore(String name, int score) {
         ArrayList<Highscore> highscoreList = readFromFile();
         Highscore newHighscore = new Highscore(name, score);
@@ -110,10 +130,11 @@ public class ScoreEngine implements Scorable {
         saveToFile(highscoreList);
     }
 
-    @Override
-    public Scene displayHighscores(Stage initialStage, Scene initialScene) {
-
-        FXMLLoader fxmlLoader = new FXMLLoader(Controller.class.getResource("display-highscores-layout.fxml"));
+    /**
+     * Loads and inflates a given XML layout into a Scene.
+     */
+    private Scene loadLayout(String layoutName) {
+        FXMLLoader fxmlLoader = new FXMLLoader(Controller.class.getResource(layoutName));
         Scene scene = null;
         try {
             scene = new Scene(fxmlLoader.load(), 800, 800);
@@ -121,6 +142,20 @@ public class ScoreEngine implements Scorable {
             e.printStackTrace();
             System.out.println(e.getMessage());
         }
+        return scene;
+    }
+
+    /**
+     * Specified in the {@link com.example.snakegame.Highscores.Scorable} interface.
+     */
+    @Override
+    public Scene displayHighscores(Stage initialStage, Scene initialScene) {
+
+        Scene scene = loadLayout("display-highscores-layout.fxml");
+
+        Text textLeft = (Text) scene.lookup("#textLeft");
+        Text textRight = (Text) scene.lookup("#textRight");
+        Button closeButton = (Button) scene.lookup("#buttonthing");
 
         ArrayList<Highscore> highscoreList = readFromFile();
         if (highscoreList == null) {
@@ -130,143 +165,103 @@ public class ScoreEngine implements Scorable {
         StringBuilder stringLeft = new StringBuilder();
         StringBuilder stringRight = new StringBuilder();
 
-
         for (Highscore highscore : highscoreList) {
             stringLeft.append(highscore.getName()).append(System.lineSeparator());
             stringRight.append(highscore.getScore()).append(System.lineSeparator());
         }
-        Text textLeft = (Text) scene.lookup("#textLeft");
+
         textLeft.setText(String.valueOf(stringLeft));
-        textLeft.setFont(Font.font("Verdana", FontWeight.BOLD, 28));
-
-        Text textRight = (Text) scene.lookup("#textRight");
-
         textRight.setText(String.valueOf(stringRight));
-        textRight.setFont(Font.font("Verdana", FontWeight.BOLD, 28));
-
-        StackPane stackPane = (StackPane) scene.lookup("#stackPane");
-
-        BorderPane borderPane = (BorderPane) scene.lookup("#borderPane");
-        borderPane.setMaxSize(300, 200);
-        borderPane.setLeft(textLeft);
-        borderPane.setRight(textRight);
-        borderPane.setPadding(new Insets(30, 50, 30, 50));
-
-        Button closeButton = (Button) scene.lookup("#buttonthing");
 
         closeButton.setOnAction(e -> {
             initialStage.setScene(initialScene);
             initialStage.show();
         });
 
-        stackPane.setPadding(new Insets(20));
         return scene;
     }
 
 
+    /**
+     * Specified in the {@link com.example.snakegame.Highscores.Scorable} interface.
+     */
     @Override
-    public Scene displayPostGame(Stage initialStage, Scene menuScene, int score) {
+    public Scene displayPostGame(Stage initialStage, Scene initialScene, int scoreAttained) {
 
-        FXMLLoader fxmlLoader = new FXMLLoader(Controller.class.getResource("post-game-layout.fxml"));
-        Scene scene = null;
-        try {
-            scene = new Scene(fxmlLoader.load(), 800, 800);
-//todo            scene.getStylesheets().add("path/post-game-stylesheet.css");
-
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-            e.printStackTrace();
-        }
-
-        Button closeButton = (Button) scene.lookup("#closeButton");
-
-
-        closeButton.setOnAction(e -> {
-            initialStage.setScene(menuScene);
-        });
-
+        Scene scene = loadLayout("post-game-layout.fxml");
 
         Text finalScore = (Text) scene.lookup("#finalScore");
-        finalScore.setText("FINAL SCORE: " + score);
-        finalScore.setFont(Font.font("Verdana", FontWeight.BOLD, 28));
-
-
         TextField result = (TextField) scene.lookup("#result");
-        result.setFont(Font.font("Verdana", FontWeight.BOLD, 28));
-
-        String styles =
-                "-fx-background-color: black;" +
-                        "-fx-background-insets: 0;" +
-                        "-fx-padding: 1 3 1 3;" +
-                        "-fx-text-fill: #40bc52";
-        result.setStyle(styles);
-
-
-        result.setMaxSize(200, 50);
         Button saveHighscore = (Button) scene.lookup("#saveHighscore");
+        Text submitText = (Text) scene.lookup("#submitText");
+        Button closeButton = (Button) scene.lookup("#closeButton");
 
+        /**
+         * Java FX method to post this as a runnable event without blocking the rest of code execution
+         * @see https://docs.oracle.com/javase/8/javafx/api/javafx/application/Platform.html#runLater-java.lang.Runnable-
+         */
         Platform.runLater(result::requestFocus);
 
-        //result.requestFocus();
+        finalScore.setText("FINAL SCORE: " + scoreAttained);
 
-
-        Text submitLabel = (Text) scene.lookup("#submitLabel");
-        submitLabel.setFont(Font.font("Verdana", FontWeight.BOLD, 28));
-
-        if (highscoreCheck(score)) {
+        if (highscoreCheck(scoreAttained)) {
             result.setManaged(true);
             saveHighscore.setManaged(true);
         } else {
-            submitLabel.setText("NO HIGHSCORE ACHIEVED");
+            submitText.setText("NO HIGHSCORE ACHIEVED");
             saveHighscore.setManaged(false);
             result.setManaged(false);
         }
 
+
         result.setOnKeyPressed(event -> {
             if (event.getCode() == KeyCode.ENTER) {
-                if (!saveHighscore.isDisable()) {
-                    if (result.getText().equals("")) {
-                        submitLabel.setText("NAME CAN'T BE BLANK. WRITE A VALID NAME");
 
-                        Thread thread = new Thread(() -> {
-                            try {
-                                Thread.sleep(1000);
-                                if(!submitLabel.getText().equals("")){
-                                    submitLabel.setText("");
-                                }
-                            } catch (InterruptedException e) {
-                                e.printStackTrace();
-                                System.out.println(e.getMessage());
-                            }
-                        });
-                        thread.start();
+                if (saveHighscore.isDisabled()) {
+                    initialStage.setScene(initialScene);
 
-                    } else {
-                        saveHighscore(result.getText(), score);
-                        saveHighscore.setDisable(true);
-                        submitLabel.setText(result.getText() + "'s highscore submitted (" + score + " points)");
+                } else if (highscoreCheck(scoreAttained)) {
+                    if (!saveHighscore.isDisable()) {
+                        if (result.getText().isBlank()) {
+                            showBlankNameAlert(submitText);
+                        } else {
+                            saveHighscore(result.getText(), scoreAttained);
+                            saveHighscore.setDisable(true);
+                            submitText.setText(result.getText() + "'s highscore submitted (" + scoreAttained + " points)");
+                        }
                     }
+                } else {
+                    initialStage.setScene(initialScene);
                 }
             }
             if (event.getCode() == KeyCode.ESCAPE) {
-                initialStage.setScene(menuScene);
+                initialStage.setScene(initialScene);
             }
-
         });
 
-        /*saveHighscore.setOnAction(e -> {
-            if(result.getText().equals("")){
-                submitLabel.setText("NAME CAN'T BE BLANK. WRITE A VALID NAME");
-            } else {
-                saveHighscore(result.getText(), score);
-                saveHighscore.setDisable(true);
-                submitLabel.setText(result.getText()+"'s highscore submitted ("+ score +" points)");
-            }
-        });*/
-        StackPane stackPane2 = (StackPane) scene.lookup("#stackPane2");
-        stackPane2.setPadding(new Insets(20));
+        closeButton.setOnAction(e -> {
+            initialStage.setScene(initialScene);
+        });
 
         return scene;
+    }
+
+    private void showBlankNameAlert(Text text) {
+        text.setText("NAME CAN'T BE BLANK. WRITE A VALID NAME");
+
+        Thread thread = new Thread(() -> {
+            try {
+                Thread.sleep(1000);
+                if (!text.getText().equals("")) {
+                    text.setText("");
+                }
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+                System.out.println(e.getMessage());
+            }
+        });
+        thread.start();
+
     }
 
 }
