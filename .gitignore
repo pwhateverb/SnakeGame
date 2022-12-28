@@ -32,3 +32,4 @@ build/
 
 ### Highscores ###
 highscores.txt
+out/artifacts/snakegame_jar/highscores.txt
