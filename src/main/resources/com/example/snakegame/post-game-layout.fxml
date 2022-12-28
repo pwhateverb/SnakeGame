@@ -20,7 +20,7 @@
             <Font name="Verdana Bold" size="28.0" />
          </font></Text>
 
-        <Button id="closeButton" style="-fx-background-color: BLACK;" text="Press Esc to return" textFill="#40bc52">
+        <Button id="closeButton" style="-fx-background-color: BLACK;" text="Press Esc to return without submitting score" textFill="#40bc52">
          <font>
             <Font name="Verdana" size="20.0" />
          </font></Button>
