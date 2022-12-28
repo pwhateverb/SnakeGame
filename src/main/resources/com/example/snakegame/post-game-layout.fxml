@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<StackPane fx:id="stackPane2" prefHeight="400" prefWidth="600" style="-fx-background-color: BLACK;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.snakegame.Highscores.ScoreEngine">
+<StackPane fx:id="postGameStackPane" prefHeight="400" prefWidth="600" style="-fx-background-color: BLACK;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.snakegame.Highscores.ScoreEngine">
 
     <VBox alignment="CENTER" spacing="20.0" style="-fx-background-color: BLACK;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
         <padding>
@@ -17,7 +17,7 @@
          </font></Label>
         <Text fx:id="finalScore" fill="#40bc52" text="FINAL SCORE: ">
          <font>
-            <Font name="Verdana" size="28.0" />
+            <Font name="Verdana Bold" size="28.0" />
          </font></Text>
 
         <Button id="closeButton" style="-fx-background-color: BLACK;" text="Press Esc to return" textFill="#40bc52">
@@ -26,11 +26,20 @@
          </font></Button>
 
         <HBox alignment="CENTER">
-            <TextField id="result" />
+            <TextField id="result" maxHeight="50.0" maxWidth="200.0" style="-fx-background-color: BLACK; -fx-background-insets: 0; -fx-padding: 1 3 1 3; -fx-text-fill: #40bc52;">
+            <font>
+               <Font name="Verdana Bold" size="28.0" />
+            </font></TextField>
             <Button id="saveHighscore" style="-fx-background-color: BLACK;" text="(ENTER FOR SUBMIT)" textFill="#40bc52" />
         </HBox>
 
-        <Text id="submitLabel" fill="#40bc52" />
+        <Text id="submitText" fill="#40bc52">
+         <font>
+            <Font name="Verdana Bold" size="28.0" />
+         </font></Text>
 
     </VBox>
+   <padding>
+      <Insets bottom="20.0" right="20.0" top="20.0" />
+   </padding>
 </StackPane>
