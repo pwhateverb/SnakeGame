@@ -216,19 +216,26 @@ public class Multiplayer {
                         food1.generateFood(snake2);
                     }
                     for (int i = 1; i < snake2.getBody().size(); i++) {
-                        if (snake2.getHead().getX() == snake2.getBody().get(i).getX()
-                                && snake2.getHead().getY() == snake2.getBody().get(i).getY()) {
+                        if ((snake2.getHead().getX() == snake2.getBody().get(i).getX()
+                                && snake2.getHead().getY() == snake2.getBody().get(i).getY())
+                        || (snake2.getHead().getX() == snake1.getBody().get(i).getX())
+                                && (snake2.getHead().getY() == snake1.getBody().get(i).getY()))
+                        {
                             gameOver();
                             return;
                         }
                     }
 
+
+
                     keyPressed2 = false;
 
 
                     for (int i = 1; i < snake1.getBody().size(); i++) {
-                        if (snake1.getHead().getX() == snake1.getBody().get(i).getX()
-                                && snake1.getHead().getY() == snake1.getBody().get(i).getY()) {
+                        if ((snake1.getHead().getX() == snake1.getBody().get(i).getX()
+                                && snake1.getHead().getY() == snake1.getBody().get(i).getY())
+                                || (snake1.getHead().getX() == snake2.getBody().get(i).getX())
+                                && (snake1.getHead().getY() == snake2.getBody().get(i).getY())){
                             gameOver();
                             return;
                         }
