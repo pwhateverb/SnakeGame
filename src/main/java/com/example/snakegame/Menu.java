@@ -87,23 +87,21 @@ public class Menu extends Application {
         Scene mainMenuScene = new Scene(mainMenuLayout, 800, 800);
         mainMenuScene.setOnKeyPressed(event -> {
             switch (event.getCode()) {
-                case UP:
+                case UP -> {
                     menuOption--;
                     if (menuOption == 0) {
                         menuOption = 5;
                     }
                     changeMenuOption(menuOption);
-                    break;
-                case DOWN:
+                }
+                case DOWN -> {
                     menuOption++;
                     if (menuOption == 6) {
                         menuOption = 1;
                     }
                     changeMenuOption(menuOption);
-                    break;
-                case ENTER:
-                    activate(menuOption);
-                    break;
+                }
+                case ENTER -> activate(menuOption);
             }
         });
 
@@ -170,12 +168,15 @@ public class Menu extends Application {
 
     //method for changing scene in the menu
     public void activate(int menuOption) {
+        Scene displayGameScene;
         if (menuOption == 1) {
             Controller controller = new Controller(stage, getMainMenuScene());
-            Scene displayGameScene = controller.play();
+            displayGameScene = controller.play();
             stage.setScene(displayGameScene);
         } else if (menuOption == 2) {
-            stage.setScene(getInstructionScene());
+            Multiplayer multiplayer = new Multiplayer(stage, getMainMenuScene());
+            displayGameScene = multiplayer.play();
+            stage.setScene(displayGameScene);
         } else if (menuOption == 3) {
             stage.setScene(getInstructionScene());
         } else if (menuOption == 4) {
