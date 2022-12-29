@@ -1,6 +1,7 @@
 package com.example.snakegame.Highscores;
 
 
+import com.example.snakegame.Menu;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
@@ -21,7 +22,7 @@ public interface Scorable {
      *      }</pre>
      *
      *  @param initialStage pass the JavaFX stage where the whole application / game is happening
-     *  @param initialScene pass a <b>new</b> JavaFX {@link com.example.snakegame.mainMenu} scene
+     *  @param initialScene pass a <b>new</b> JavaFX {@link Menu} scene
      *
      *  @return returns a JavaFX scene that displays the top-10 highscores
      *  @see <a href="https://docs.oracle.com/javase/8/javafx/api/javafx/scene/Scene.html">JavaFX Scene</a>
@@ -42,7 +43,7 @@ public interface Scorable {
      *      }</pre>
      *
      *      @param initialStage pass the JavaFX stage where the whole application / game is happening
-     *      @param initialScene pass a <b>new</b> JavaFX {@link com.example.snakegame.mainMenu} scene
+     *      @param initialScene pass a <b>new</b> JavaFX {@link Menu} scene
      *      @param scoreAttained pass the score just attained by the user
      *
      *      @return returns a JavaFX scene that displays the post-game screen

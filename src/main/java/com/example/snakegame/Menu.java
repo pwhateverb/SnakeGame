@@ -18,7 +18,7 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
-public class mainMenu extends Application {
+public class Menu extends Application {
 
     private final Rectangle menuPointer = new Rectangle();
     private int menuOption = 1;
