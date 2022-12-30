@@ -16,7 +16,7 @@ public class GameUI {
     private GameLogic gameLogic;
     private static GridPane grid;
     private final VBox vBox = new VBox();
-    private final BorderPane borderPane = new BorderPane();
+    private final static BorderPane borderPane = new BorderPane();
     public static Food foodTest = new Food();
     public static ArrayList<Rectangle> snakeParts = new ArrayList<>();
     static Color snakeColor = Color.web("#00FF00");
@@ -37,7 +37,8 @@ public class GameUI {
         setupVbox();
         initializeSnakeParts(snakeColor);
 
-        foodTest.generateFood(gameLogic.snakeTest);
+        // initialize food
+        grid.getChildren().add(foodTest.getFood());
 
         Scene scene = new Scene(borderPane);
 
@@ -85,13 +86,18 @@ public class GameUI {
 
     }
 
-    public static void updateUI(Snake snakeTest2, Food food) {
+    public static void updateUI(Snake snakeTest2, Food food, int points) {
         for (int i = 0; i < snakeParts.size(); i++) {
             GridPane.setColumnIndex(snakeParts.get(i), snakeTest2.getBody().get(i).getX());
             GridPane.setRowIndex(snakeParts.get(i), snakeTest2.getBody().get(i).getY());
         }
         GridPane.setColumnIndex(foodTest.getFood(), food.getFoodX());
         GridPane.setRowIndex(foodTest.getFood(), food.getFoodY());
+
+        // update score
+        TextFlow textFlow = (TextFlow) ((VBox) borderPane.getTop()).getChildren().get(0);
+        Text text = (Text) textFlow.getChildren().get(1);
+        text.setText(String.valueOf(points));
 
     }
 

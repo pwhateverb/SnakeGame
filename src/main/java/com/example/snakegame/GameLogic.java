@@ -56,7 +56,7 @@ public class GameLogic {
                     checkCollision();
 
                     // update UI every frame
-                    GameUI.updateUI(snakeTest, food);
+                    GameUI.updateUI(snakeTest, food, points);
 
                 } catch (Exception e) {
                     System.out.println("Game loop error");
