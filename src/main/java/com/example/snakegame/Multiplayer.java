@@ -28,6 +28,7 @@ public class Multiplayer {
     private final Snake snake2 = new Snake (5,15,"up");
 
     private final Food food1 = new Food();
+    private final Food food2 = new Food();
     private final ArrayList<Rectangle> snakeParts1 = new ArrayList<>();
     private final ArrayList<Rectangle> snakeParts2 = new ArrayList<>();
     private int points = 0;
@@ -107,6 +108,7 @@ public class Multiplayer {
             grid.getChildren().add(snakeParts2.get(i));
         }
         grid.getChildren().add(food1.getFood());
+        grid.getChildren().add(food2.getFood());
 
 
         // Gather key inputs
@@ -164,7 +166,7 @@ public class Multiplayer {
         });
 
         // ms between each frame update (lower number == harder game)
-        int difficulty = 140;
+        int difficulty = 180;
 
         // Frame updater
         timeline = new Timeline(
@@ -187,6 +189,35 @@ public class Multiplayer {
                         GridPane.setColumnIndex(snakeParts2.get(i), snake2.getBody().get(i).getX());
                         GridPane.setRowIndex(snakeParts2.get(i), snake2.getBody().get(i).getY());
                     }
+                    if (food2.getFoodY() == GridPane.getRowIndex(snakeParts1.get(0))
+                            && food2.getFoodX() == GridPane.getColumnIndex(snakeParts1.get(0))) {
+                        points++;
+                        scoreNumber.setText(String.valueOf(points));
+                        snake1.grow();
+
+                        // Grow snake by 1
+                        snakeParts1.add(new Rectangle(39.8, 39.8, snakeColor1));
+                        GridPane.setColumnIndex(snakeParts1.get(snakeParts1.size() - 1), snake1.getTail().getX());
+                        GridPane.setRowIndex(snakeParts1.get(snakeParts1.size() - 1), snake1.getTail().getY());
+                        grid.getChildren().add(snakeParts1.get(snakeParts1.size() - 1));
+                        // Generate new food
+                        food2.generateFoodForMultiplayer(snake1, snake2);
+                    }
+                    if (food2.getFoodY() == GridPane.getRowIndex(snakeParts2.get(0))
+                            && food2.getFoodX() == GridPane.getColumnIndex(snakeParts2.get(0))) {
+                        points++;
+                        scoreNumber.setText(String.valueOf(points));
+                        snake2.grow();
+
+                        // Grow snake by 1
+                        snakeParts2.add(new Rectangle(39.8, 39.8, snakeColor2));
+                        GridPane.setColumnIndex(snakeParts2.get(snakeParts2.size() - 1), snake2.getTail().getX());
+                        GridPane.setRowIndex(snakeParts2.get(snakeParts2.size() - 1), snake2.getTail().getY());
+                        grid.getChildren().add(snakeParts2.get(snakeParts2.size() - 1));
+                        // Generate new food
+                        food2.generateFoodForMultiplayer(snake1, snake2);
+                    }
+
                     if (food1.getFoodY() == GridPane.getRowIndex(snakeParts1.get(0))
                             && food1.getFoodX() == GridPane.getColumnIndex(snakeParts1.get(0))) {
                         points++;
@@ -199,7 +230,7 @@ public class Multiplayer {
                         GridPane.setRowIndex(snakeParts1.get(snakeParts1.size() - 1), snake1.getTail().getY());
                         grid.getChildren().add(snakeParts1.get(snakeParts1.size() - 1));
                         // Generate new food
-                        food1.generateFood(snake1);
+                        food1.generateFoodForMultiplayer(snake1, snake2);
                     }
                     if (food1.getFoodY() == GridPane.getRowIndex(snakeParts2.get(0))
                             && food1.getFoodX() == GridPane.getColumnIndex(snakeParts2.get(0))) {
@@ -213,7 +244,8 @@ public class Multiplayer {
                         GridPane.setRowIndex(snakeParts2.get(snakeParts2.size() - 1), snake2.getTail().getY());
                         grid.getChildren().add(snakeParts2.get(snakeParts2.size() - 1));
                         // Generate new food
-                        food1.generateFood(snake2);
+                        food1.generateFoodForMultiplayer(snake1, snake2);
+
                     }
                     for (int i = 1; i < snake2.getBody().size(); i++) {
                         if ((snake2.getHead().getX() == snake2.getBody().get(i).getX()

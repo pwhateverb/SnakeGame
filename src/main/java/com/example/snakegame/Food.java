@@ -44,6 +44,43 @@ public class Food {
         }
     }
 
+    public void generateFoodForMultiplayer(Snake snake1, Snake snake2) {
+        // Generates a new food in a random position on the grid.
+        boolean foodOnSnake1 = true;
+        boolean foodOnSnake2 = true;
+
+        while (foodOnSnake1||foodOnSnake2) {
+            int x = rand.nextInt(19);
+            int y = rand.nextInt(16);
+            // Checks if the food is placed on/under the snake. If so, repeat the process.
+            for (int i = 0; i < snake1.getBody().size(); i++) {
+                if (snake1.getBody().get(i).getX() == x && snake1.getBody().get(i).getY() == y) {
+                    foodOnSnake1 = true;
+                    break;
+                } else {
+                    foodOnSnake1 = false;
+                }
+            }
+            for (int i = 0; i < snake2.getBody().size(); i++){
+                if (snake2.getBody().get(i).getX() == x && snake2.getBody().get(i).getY() == y){
+                    foodOnSnake2 = true;
+                    break;
+                } else{
+                    foodOnSnake2 = false;
+                }
+            }
+
+            if (!foodOnSnake1 && !foodOnSnake2) {
+                GridPane.setColumnIndex(food, x);
+                GridPane.setRowIndex(food, y);
+            }
+
+        }
+
+    }
+
+
+
     public int getFoodX() {
         // returns the x position of the food on the grid
         return GridPane.getColumnIndex(food);
