@@ -166,7 +166,7 @@ public class Multiplayer {
         });
 
         // ms between each frame update (lower number == harder game)
-        int difficulty = 180;
+        int difficulty = 120;
 
         // Frame updater
         timeline = new Timeline(
