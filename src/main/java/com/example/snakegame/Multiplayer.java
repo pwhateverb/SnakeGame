@@ -25,7 +25,7 @@ public class Multiplayer {
     private final VBox vBox = new VBox();
     private final BorderPane borderPane = new BorderPane();
     private final Snake snake1 = new Snake(15, 5, "down");
-    private final Snake snake2 = new Snake (5,15,"up");
+    private final Snake snake2 = new Snake(5, 15, "up");
 
     private final Food food1 = new Food();
     private final Food food2 = new Food();
@@ -166,7 +166,7 @@ public class Multiplayer {
         });
 
         // ms between each frame update (lower number == harder game)
-        int difficulty = 180;
+        int difficulty = 120;
 
         // Frame updater
         timeline = new Timeline(
@@ -250,8 +250,8 @@ public class Multiplayer {
                     for (int i = 1; i < snake2.getBody().size(); i++) {
                         if ((snake2.getHead().getX() == snake2.getBody().get(i).getX()
                                 && snake2.getHead().getY() == snake2.getBody().get(i).getY())
-                        || (snake2.getHead().getX() == snake1.getBody().get(i).getX())
-                                && (snake2.getHead().getY() == snake1.getBody().get(i).getY()))
+                                || (snake1.getHead().getX() == snake2.getBody().get(i).getX())
+                                && (snake1.getHead().getY() == snake2.getBody().get(i).getY()))
                         {
                             gameOver();
                             return;
@@ -266,8 +266,8 @@ public class Multiplayer {
                     for (int i = 1; i < snake1.getBody().size(); i++) {
                         if ((snake1.getHead().getX() == snake1.getBody().get(i).getX()
                                 && snake1.getHead().getY() == snake1.getBody().get(i).getY())
-                                || (snake1.getHead().getX() == snake2.getBody().get(i).getX())
-                                && (snake1.getHead().getY() == snake2.getBody().get(i).getY())){
+                                || (snake2.getHead().getX() == snake1.getBody().get(i).getX())
+                                && (snake2.getHead().getY() == snake1.getBody().get(i).getY())){
                             gameOver();
                             return;
                         }
@@ -290,5 +290,3 @@ public class Multiplayer {
         stage.show();
     }
 }
-
-
