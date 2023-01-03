@@ -24,8 +24,8 @@ public class Controller {
     private final GridPane grid = new GridPane();
     private final VBox vBox = new VBox();
     private final BorderPane borderPane = new BorderPane();
-    private final Snake snakeTest = new Snake(10, 10, "left");
-    private final Food foodTest = new Food();
+    private final Snake snake = new Snake(10, 10, "left");
+    private final Food food = new Food();
     private final ArrayList<Rectangle> snakeParts = new ArrayList<>();
     private int points = 0; // Show this number in the UI
 
@@ -87,38 +87,38 @@ public class Controller {
         scene = new Scene(borderPane);
 
         // initialize snake parts
-        for (int i = 0; i < snakeTest.getBody().size(); i++) {
+        for (int i = 0; i < snake.getBody().size(); i++) {
             snakeParts.add(new Rectangle(39.8, 39.8, snakeColor));
-            GridPane.setColumnIndex(snakeParts.get(i), snakeTest.getBody().get(i).getX());
-            GridPane.setRowIndex(snakeParts.get(i), snakeTest.getBody().get(i).getY());
+            GridPane.setColumnIndex(snakeParts.get(i), snake.getBody().get(i).getX());
+            GridPane.setRowIndex(snakeParts.get(i), snake.getBody().get(i).getY());
             grid.getChildren().add(snakeParts.get(i));
         }
-        grid.getChildren().add(foodTest.getFood());
+        grid.getChildren().add(food.getFood());
 
         // Gather key inputs
         scene.setOnKeyPressed(event -> {
             switch (event.getCode()) {
                 case UP -> {
                     if (!keyPressed) {
-                        snakeTest.setDirection("up");
+                        snake.setDirection("up");
                         keyPressed = true;
                     }
                 }
                 case RIGHT -> {
                     if (!keyPressed) {
-                        snakeTest.setDirection("right");
+                        snake.setDirection("right");
                         keyPressed = true;
                     }
                 }
                 case DOWN -> {
                     if (!keyPressed) {
-                        snakeTest.setDirection("down");
+                        snake.setDirection("down");
                         keyPressed = true;
                     }
                 }
                 case LEFT -> {
                     if (!keyPressed) {
-                        snakeTest.setDirection("left");
+                        snake.setDirection("left");
                         keyPressed = true;
                     }
                 }
@@ -131,39 +131,39 @@ public class Controller {
         // Frame updater
         timeline = new Timeline(
                 new KeyFrame(Duration.millis(difficulty), event -> {
-                    snakeTest.move();
+                    snake.move();
 
                     // if snake is out of bounds aka hitting the walls => game over
-                    if (snakeTest.isSnakeOutOfMap()) {
+                    if (snake.isSnakeOutOfMap()) {
                         gameOver();
                         return;
                     }
 
                     // Move snake every frame
-                    for (int i = 0; i < snakeTest.getBody().size(); i++) {
-                        GridPane.setColumnIndex(snakeParts.get(i), snakeTest.getBody().get(i).getX());
-                        GridPane.setRowIndex(snakeParts.get(i), snakeTest.getBody().get(i).getY());
+                    for (int i = 0; i < snake.getBody().size(); i++) {
+                        GridPane.setColumnIndex(snakeParts.get(i), snake.getBody().get(i).getX());
+                        GridPane.setRowIndex(snakeParts.get(i), snake.getBody().get(i).getY());
                     }
                     // Check if head == food
-                    if (foodTest.getFoodY() == GridPane.getRowIndex(snakeParts.get(0))
-                            && foodTest.getFoodX() == GridPane.getColumnIndex(snakeParts.get(0))) {
+                    if (food.getFoodY() == GridPane.getRowIndex(snakeParts.get(0))
+                            && food.getFoodX() == GridPane.getColumnIndex(snakeParts.get(0))) {
                         points++;
                         scoreNumber.setText(String.valueOf(points));
-                        snakeTest.grow();
+                        snake.grow();
 
                         // Grow snake by 1
                         snakeParts.add(new Rectangle(39.8, 39.8, snakeColor));
-                        GridPane.setColumnIndex(snakeParts.get(snakeParts.size() - 1), snakeTest.getTail().getX());
-                        GridPane.setRowIndex(snakeParts.get(snakeParts.size() - 1), snakeTest.getTail().getY());
+                        GridPane.setColumnIndex(snakeParts.get(snakeParts.size() - 1), snake.getTail().getX());
+                        GridPane.setRowIndex(snakeParts.get(snakeParts.size() - 1), snake.getTail().getY());
                         grid.getChildren().add(snakeParts.get(snakeParts.size() - 1));
                         // Generate new food
-                        foodTest.generateFood(snakeTest);
+                        food.generateFood(snake);
                     }
 
                     // If snake hits its own body, game over
-                    for (int i = 1; i < snakeTest.getBody().size(); i++) {
-                        if (snakeTest.getHead().getX() == snakeTest.getBody().get(i).getX()
-                                && snakeTest.getHead().getY() == snakeTest.getBody().get(i).getY()) {
+                    for (int i = 1; i < snake.getBody().size(); i++) {
+                        if (snake.getHead().getX() == snake.getBody().get(i).getX()
+                                && snake.getHead().getY() == snake.getBody().get(i).getY()) {
                             gameOver();
                             return;
                         }
